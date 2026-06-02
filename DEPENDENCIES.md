@@ -59,7 +59,8 @@ fi
 | Git | 系统自带 | 版本控制 |
 | uv | `curl -LsSf https://astral.sh/uv/install.sh \| sh` | Python 包管理 |
 | Semble | `uv tool install semble` | 代码搜索 MCP |
-| CodeGraph | `npm install -g codegraph` | 代码知识图谱 MCP |
+| CodeGraph | `npm install -g @colbymchenry/codegraph` | 代码知识图谱 MCP |
+| AgentMemory | 见 GitHub 仓库 | 持久记忆管理 MCP |
 
 ## 可选依赖
 
@@ -121,7 +122,27 @@ npm install -g codegraph
 which codegraph
 ```
 
-**GitHub**：https://github.com/ricocf/codegraph
+**GitHub**：https://github.com/colbymchenry/codegraph
+
+---
+
+### AgentMemory（必需）
+
+**用途**：持久记忆管理，支持会话历史、知识保存、提交追溯等
+
+**安装**：参考 GitHub 仓库的安装说明
+
+**提供的 Skills**：
+- `recall` — 搜索历史观察和学习成果
+- `remember` — 保存洞察到长期存储
+- `recap` — 总结最近会话
+- `handoff` — 恢复上次会话
+- `forget` — 删除记忆（隐私保护）
+- `commit-context` — 追溯代码到 agent 会话
+- `commit-history` — 列出 agent 关联的提交
+- `session-history` — 展示会话历史
+
+**GitHub**：https://github.com/rohitg00/agentmemory
 
 ---
 
@@ -181,6 +202,10 @@ MCP 配置文件：`~/.claude/settings.json`
     "codegraph": {
       "command": "codegraph",
       "args": ["serve"]
+    },
+    "agentmemory": {
+      "command": "npx",
+      "args": ["-y", "agentmemory"]
     }
   }
 }
@@ -189,6 +214,14 @@ MCP 配置文件：`~/.claude/settings.json`
 ### 其他 Agent
 
 请参考各 agent 的 MCP 配置方式。
+
+### MCP GitHub 地址
+
+| MCP | GitHub |
+|-----|--------|
+| Semble | https://github.com/MinishLab/semble |
+| CodeGraph | https://github.com/colbymchenry/codegraph |
+| AgentMemory | https://github.com/rohitg00/agentmemory |
 
 ## 故障排除
 

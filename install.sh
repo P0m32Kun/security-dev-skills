@@ -332,6 +332,12 @@ Security Dev Skills — 安装脚本
 说明:
     本脚本只负责克隆仓库和创建软链接。
     依赖检查由 agent 自行完成，参考 ~/.security-dev-skills/DEPENDENCIES.md
+
+集成 Skills:
+    安装后自动包含以下工具的 skills（MCP 需用户自行安装）：
+    - AgentMemory: 持久记忆管理（recall, remember, recap 等）
+    - CodeGraph: 代码图谱分析
+    - Semble: 语义代码搜索
 EOF
 }
 
@@ -403,6 +409,17 @@ main() {
             log_info "下一步："
             echo "  1. 重启你的 Coding Agent"
             echo "  2. 开始使用：阅读 SKILL.md"
+            echo ""
+
+            log_info "集成 Skills（已包含）："
+            echo "  - AgentMemory: 持久记忆管理（recall, remember, recap 等）"
+            echo "  - CodeGraph: 代码图谱分析"
+            echo "  - Semble: 语义代码搜索"
+            echo ""
+            log_info "集成 MCP 安装（需用户自行完成）："
+            echo "  - AgentMemory: https://github.com/rohitg00/agentmemory"
+            echo "  - CodeGraph: https://github.com/colbymchenry/codegraph"
+            echo "  - Semble: https://github.com/MinishLab/semble"
             echo ""
 
             log_info "依赖说明："

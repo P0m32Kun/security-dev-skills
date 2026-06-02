@@ -132,6 +132,47 @@ outputs:                      # 可选，输出契约
 |-------|------|------|
 | deploy | `release/deploy.md` | 发布部署流程 |
 
+### 集成 Skills（来自外部工具）
+
+我们集成了以下工具的 skills，提供开箱即用的能力：
+
+#### AgentMemory — 持久记忆管理
+
+| Skill | 文件 | 用途 |
+|-------|------|------|
+| recall | `integrations/agentmemory/recall.md` | 搜索历史观察、会话和学习成果 |
+| remember | `integrations/agentmemory/remember.md` | 保存洞察、决策到长期存储 |
+| recap | `integrations/agentmemory/recap.md` | 总结最近 N 个会话 |
+| handoff | `integrations/agentmemory/handoff.md` | 恢复最近的 agent 会话 |
+| forget | `integrations/agentmemory/forget.md` | 删除特定观察或会话（隐私保护） |
+| commit-context | `integrations/agentmemory/commit-context.md` | 追溯代码到产生它的 agent 会话 |
+| commit-history | `integrations/agentmemory/commit-history.md` | 列出 agent 关联的 git 提交 |
+| session-history | `integrations/agentmemory/session-history.md` | 展示近期会话历史 |
+
+#### CodeGraph — 代码图谱分析
+
+| Skill | 文件 | 用途 |
+|-------|------|------|
+| codegraph-usage | `integrations/codegraph/usage.md` | CodeGraph MCP 使用指南（自动应用） |
+
+#### Semble — 语义代码搜索
+
+| Skill | 文件 | 用途 |
+|-------|------|------|
+| semble-search | `integrations/semble/search.md` | 语义代码搜索 agent |
+
+### 集成依赖
+
+这些 skills 依赖对应的 MCP 服务器。**MCP 安装由用户自行完成**，我们只提供 GitHub 地址：
+
+| 工具 | GitHub | 用途 |
+|------|--------|------|
+| AgentMemory | https://github.com/rohitg00/agentmemory | 持久记忆管理 |
+| CodeGraph | https://github.com/colbymchenry/codegraph | 代码知识图谱 |
+| Semble | https://github.com/MinishLab/semble | 语义代码搜索（节省 98% token） |
+
+详见 `DEPENDENCIES.md`
+
 ## 外部依赖
 
 本仓库是**独立的 skill 仓库**，不依赖外部 skill。只依赖必要的工具和 MCP 服务器。
