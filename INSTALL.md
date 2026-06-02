@@ -1,22 +1,22 @@
 # Security Dev Skills — 安装说明
 
-> 本文件供 coding agent（如 Claude Code）自动安装使用。
+> 本文件供 coding agent 自动安装使用。
 > 人类用户请参考 README.md。
 
 ## 给 Agent 的指令
 
-如果你是一个 coding agent（如 Claude Code），请按照以下步骤自动安装 Security Dev Skills：
+如果你是一个 coding agent，请按照以下步骤自动安装 Security Dev Skills：
 
 ### 步骤 1：克隆仓库
 
 ```bash
-git clone git@github.com:P0m32Kun/security-dev-skills.git ~/.claude/skills/security-dev-skills
+git clone git@github.com:P0m32Kun/security-dev-skills.git ~/.security-dev-skills
 ```
 
 ### 步骤 2：进入目录
 
 ```bash
-cd ~/.claude/skills/security-dev-skills
+cd ~/.security-dev-skills
 ```
 
 ### 步骤 3：运行安装脚本
@@ -30,15 +30,121 @@ cd ~/.claude/skills/security-dev-skills
 - 安装 uv（Python 包管理器）
 - 安装 Semble MCP（代码搜索）
 - 安装 CodeGraph MCP（代码知识图谱）
-- 配置 MCP 服务器到 `~/.claude/settings.json`
+- 配置 MCP 服务器
 
-### 步骤 4：验证安装
+### 步骤 4：加载 Skill
 
-```bash
-# 检查 MCP 配置
-cat ~/.claude/settings.json | grep -A 3 "mcpServers"
+根据你是什么 agent，选择对应的加载方式：
 
-# 应该看到 semble 和 codegraph 的配置
+#### Claude Code
+
+在项目的 `CLAUDE.md` 中添加：
+
+```markdown
+@~/.security-dev-skills/SKILL.md
+```
+
+或在 `~/.claude/CLAUDE.md` 中添加（全局生效）：
+
+```markdown
+@~/.security-dev-skills/SKILL.md
+```
+
+#### Codex (OpenAI)
+
+在项目的 `AGENTS.md` 中添加：
+
+```markdown
+# Security Dev Skills
+
+参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+
+## 开发流程
+
+Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
+
+每个阶段有明确的完成标准，不能跳过。详见 ~/.security-dev-skills/workflow/develop.feature.md
+```
+
+#### Cursor
+
+在项目的 `.cursorrules` 中添加：
+
+```markdown
+# Security Dev Skills
+
+参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+
+## 开发流程
+
+Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
+
+每个阶段有明确的完成标准，不能跳过。详见 ~/.security-dev-skills/workflow/develop.feature.md
+```
+
+#### OpenCode
+
+在项目的 `AGENTS.md` 中添加：
+
+```markdown
+# Security Dev Skills
+
+参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+
+## 开发流程
+
+Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
+
+每个阶段有明确的完成标准，不能跳过。详见 ~/.security-dev-skills/workflow/develop.feature.md
+```
+
+#### Windsurf / Codeium
+
+在项目的 `.windsurfrules` 中添加：
+
+```markdown
+# Security Dev Skills
+
+参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+
+## 开发流程
+
+Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
+
+每个阶段有明确的完成标准，不能跳过。详见 ~/.security-dev-skills/workflow/develop.feature.md
+```
+
+#### Aider
+
+在项目的 `.aider.conf.yml` 中添加：
+
+```yaml
+read:
+  - ~/.security-dev-skills/SKILL.md
+```
+
+#### 其他 Agent
+
+将以下内容添加到你的 agent 配置文件中：
+
+```markdown
+# Security Dev Skills
+
+参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+
+## 开发流程
+
+Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
+
+每个阶段有明确的完成标准，不能跳过。
+
+## 核心 Skill
+
+- 编排器：~/.security-dev-skills/workflow/develop.feature.md
+- 回顾：~/.security-dev-skills/workflow/retrospective.md
+- 文档同步：~/.security-dev-skills/docs/sync.md
+- 测试策略：~/.security-dev-skills/testing/strategy.md
+- 功能验证：~/.security-dev-skills/testing/verify.md
 ```
 
 ### 步骤 5：告知用户
@@ -49,12 +155,12 @@ cat ~/.claude/settings.json | grep -A 3 "mcpServers"
 Security Dev Skills 安装完成！
 
 已安装：
-- Skill 仓库：~/.claude/skills/security-dev-skills
+- Skill 仓库：~/.security-dev-skills
 - MCP 服务器：Semble（代码搜索）、CodeGraph（代码知识图谱）
 
 下一步：
-1. 重启 Claude Code 以加载 MCP 服务器
-2. 阅读 ~/.claude/skills/security-dev-skills/SKILL.md 了解开发流程
+1. 重启你的 coding agent 以加载配置
+2. 阅读 ~/.security-dev-skills/SKILL.md 了解开发流程
 3. 开始使用：Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
 ```
 
@@ -99,7 +205,7 @@ Security Dev Skills 安装完成！
 ssh -T git@github.com
 
 # 如果没有 SSH 密钥，使用 HTTPS
-git clone https://github.com/P0m32Kun/security-dev-skills.git ~/.claude/skills/security-dev-skills
+git clone https://github.com/P0m32Kun/security-dev-skills.git ~/.security-dev-skills
 ```
 
 ### 问题：install.sh 权限不足
@@ -124,8 +230,11 @@ export PATH="$HOME/.local/bin:$PATH"
 # macOS
 brew install node
 
-# Linux
+# Linux (Debian/Ubuntu)
 sudo apt-get install nodejs npm
+
+# Linux (Fedora)
+sudo dnf install nodejs npm
 ```
 
 ## 自动更新

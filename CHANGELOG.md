@@ -11,12 +11,20 @@
 
 ### Added
 - `INSTALL.md` — 安装说明（供 agent 自动安装使用）
+- 支持多种 coding agent：
+  - Claude Code（CLAUDE.md）
+  - Codex（AGENTS.md）
+  - Cursor（.cursorrules）
+  - OpenCode（AGENTS.md）
+  - Windsurf（.windsurfrules）
+  - Aider（.aider.conf.yml）
 - 更新 `README.md` 增加两种安装方式：
   - 人类手动安装
   - Agent 自动安装
 
 ### Changed
 - 优化 README.md 结构，更清晰的安装指引
+- 安装目录改为 ~/.security-dev-skills（更通用）
 
 ## [0.5.0] - 2026-06-02
 

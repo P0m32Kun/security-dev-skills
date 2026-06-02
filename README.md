@@ -10,48 +10,95 @@
 2. **文档更新无强制** — 代码变更后自动触发文档更新
 3. **测试能力不足** — 从用户视角验证功能，不只是编译通过
 
+## 支持的 Coding Agent
+
+| Agent | 配置文件 | 状态 |
+|-------|---------|------|
+| [Claude Code](https://claude.ai/code) | `CLAUDE.md` | ✓ 已测试 |
+| [Codex](https://github.com/openai/codex) | `AGENTS.md` | ✓ 支持 |
+| [Cursor](https://cursor.sh) | `.cursorrules` | ✓ 支持 |
+| [OpenCode](https://github.com/opencode-ai/opencode) | `AGENTS.md` | ✓ 支持 |
+| [Windsurf](https://codeium.com/windsurf) | `.windsurfrules` | ✓ 支持 |
+| [Aider](https://aider.chat) | `.aider.conf.yml` | ✓ 支持 |
+| 其他 | 参考 INSTALL.md | ✓ 通用 |
+
 ## 安装方式
 
 ### 方式一：人类手动安装
 
 ```bash
-# 1. 克隆仓库到 ~/.claude/skills/
-git clone git@github.com:P0m32Kun/security-dev-skills.git ~/.claude/skills/security-dev-skills
+# 1. 克隆仓库
+git clone git@github.com:P0m32Kun/security-dev-skills.git ~/.security-dev-skills
 
 # 2. 进入目录
-cd ~/.claude/skills/security-dev-skills
+cd ~/.security-dev-skills
 
-# 3. 运行安装脚本（安装依赖：Semble, CodeGraph 等 MCP）
+# 3. 运行安装脚本
 ./install.sh
 
-# 4. 重启 Claude Code
+# 4. 配置你的 coding agent（见下方）
+```
+
+#### 配置 Claude Code
+
+在 `~/.claude/CLAUDE.md` 或项目 `CLAUDE.md` 中添加：
+
+```markdown
+@~/.security-dev-skills/SKILL.md
+```
+
+#### 配置 Codex / OpenCode
+
+在项目 `AGENTS.md` 中添加：
+
+```markdown
+参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+```
+
+#### 配置 Cursor
+
+在项目 `.cursorrules` 中添加：
+
+```markdown
+参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+```
+
+#### 配置 Windsurf
+
+在项目 `.windsurfrules` 中添加：
+
+```markdown
+参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
 ```
 
 ### 方式二：Agent 自动安装
 
-**打开一个新的 Claude Code 会话，然后输入：**
+**打开你的 coding agent，输入：**
 
 ```
-请阅读 https://github.com/P0m32Kun/security-dev-skills/blob/main/INSTALL.md 并按照说明安装 security-dev-skills。
+请阅读 https://github.com/P0m32Kun/security-dev-skills/blob/main/INSTALL.md 并按照说明安装。
 ```
 
-**或者直接粘贴 INSTALL.md 的内容给 Claude。**
+**或者直接粘贴 INSTALL.md 的内容给 agent。**
 
-Claude 会自动：
-1. 克隆仓库到 `~/.claude/skills/security-dev-skills`
+Agent 会自动：
+1. 克隆仓库到 `~/.security-dev-skills`
 2. 运行安装脚本
 3. 配置 MCP 服务器
-4. 验证安装成功
+4. 加载 skill 配置
 
 ## 安装后验证
 
 ```bash
-# 检查 MCP 服务器
-claude mcp list
+# 检查仓库是否克隆成功
+ls ~/.security-dev-skills/SKILL.md
 
-# 应该看到：
-# - semble: uvx --from "semble[mcp]" semble
-# - codegraph: codegraph serve
+# 检查 MCP 配置（Claude Code）
+cat ~/.claude/settings.json | grep -A 3 "mcpServers"
+
+# 检查依赖是否安装
+which uv
+which git
 ```
 
 ## 开发流程
