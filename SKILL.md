@@ -29,6 +29,17 @@ triggers:
   - "retrospective"
   - "开发流程"
   - "development workflow"
+  # Bug 修复
+  - "修复bug"
+  - "fix bug"
+  - "修复缺陷"
+  - "解决问题"
+  - "故障排查"
+  - "bug修复"
+  - "hotfix"
+  - "问题修复"
+  - "修复报错"
+  - "fix error"
   # 安全专项
   - "安全扫描"
   - "security scan"
@@ -188,6 +199,7 @@ outputs:                      # 可选，输出契约
 | brainstorming | `workflow/brainstorming.md` | 需求讨论与设计探索 |
 | writing-plans | `workflow/writing-plans.md` | 实施计划编写 |
 | develop.feature | `workflow/develop.feature.md` | 完整需求开发流程 |
+| fix.bug | `workflow/fix.bug.md` | 标准化 Bug 修复流程 |
 | retrospective | `workflow/retrospective.md` | 开发完成后的回顾与优化 |
 
 ### 文档
