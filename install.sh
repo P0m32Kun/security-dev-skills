@@ -43,6 +43,7 @@ get_agent_skill_dir() {
         aider)       echo "$HOME/.aider/skills/security-dev-skills" ;;
         cline)       echo "$HOME/.cline/skills/security-dev-skills" ;;
         continue)    echo "$HOME/.continue/skills/security-dev-skills" ;;
+        pi)          echo "$HOME/.pi/agent/skills/security-dev-skills" ;;
         generic)     echo "$HOME/.coding-agent/skills/security-dev-skills" ;;
         *)           echo "" ;;
     esac
@@ -60,6 +61,7 @@ get_agent_config_file() {
         aider)       echo "$HOME/.aider.conf.yml" ;;
         cline)       echo "$HOME/.cline/rules" ;;
         continue)    echo "$HOME/.continue/config.yaml" ;;
+        pi)          echo "$HOME/.pi/agent/instructions.md" ;;
         *)           echo "" ;;
     esac
 }
@@ -78,6 +80,7 @@ list_agents() {
     echo "  aider          ~/.aider/skills/security-dev-skills"
     echo "  cline          ~/.cline/skills/security-dev-skills"
     echo "  continue       ~/.continue/skills/security-dev-skills"
+    echo "  pi             ~/.pi/agent/skills/security-dev-skills"
     echo "  generic        ~/.coding-agent/skills/security-dev-skills"
     echo ""
     echo "使用方式："
@@ -97,6 +100,7 @@ detect_agents() {
     ([ -f "$HOME/.aider.conf.yml" ] || command -v aider &>/dev/null) && detected="$detected aider"
     [ -d "$HOME/.cline" ] && detected="$detected cline"
     [ -d "$HOME/.continue" ] && detected="$detected continue"
+    [ -d "$HOME/.pi" ] && detected="$detected pi"
 
     echo "$detected"
 }
@@ -199,6 +203,29 @@ read:
   - ~/.security-dev-skills/SKILL.md
 EOF
             ;;
+        pi)
+            # Pi 使用 instructions.md
+            cat >> "$config_file" << 'EOF'
+
+# Security Dev Skills
+
+参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+
+## 开发流程
+
+Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
+
+每个阶段有明确的完成标准，不能跳过。
+
+## 核心 Skill
+
+- 编排器：~/.security-dev-skills/workflow/develop.feature.md
+- 回顾：~/.security-dev-skills/workflow/retrospective.md
+- 文档同步：~/.security-dev-skills/docs/sync.md
+- 测试策略：~/.security-dev-skills/testing/strategy.md
+- 功能验证：~/.security-dev-skills/testing/verify.md
+EOF
+            ;;
         *)
             cat >> "$config_file" << 'EOF'
 
@@ -267,7 +294,7 @@ uninstall() {
     log_info "卸载 Security Dev Skills..."
 
     # 删除软链接
-    for agent in claude-code codex cursor opencode windsurf aider cline continue generic; do
+    for agent in claude-code codex cursor opencode windsurf aider cline continue pi generic; do
         local target_dir=$(get_agent_skill_dir "$agent")
         if [ -L "$target_dir" ]; then
             rm "$target_dir"
