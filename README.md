@@ -1,6 +1,6 @@
-# Security Dev Skills
+# Dev Workflow — 结构化开发技能体系
 
-> 独立的标准化开发流程 skill 仓库，适用于任何 coding agent。
+> 覆盖完整开发生命周期的 skill 仓库，适用于任何 coding agent。
 
 ## 这是什么
 
@@ -9,6 +9,17 @@
 1. **文档散乱** — 统一文档格式和同步机制
 2. **文档更新无强制** — 代码变更后自动触发文档更新
 3. **测试能力不足** — 从用户视角验证功能，不只是编译通过
+
+### 适用场景
+
+| 场景 | 对应 Skill |
+|------|----------|
+| 开发新功能 | develop.feature → writing-plans → tdd |
+| 修复 Bug | test-strategy → verify |
+| 代码回顾 | retrospective |
+| 文档维护 | doc-sync → doc-validate |
+| 发布部署 | deploy |
+| 安全工具开发 | security-research → poc → tool-integrate |
 
 ## 支持的 Coding Agent
 
@@ -94,7 +105,7 @@ which git
 ```
 Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
    │          │          │           │          │         │          │
-安全调研    设计文档    编码+测试    文档同步    用户验证    发布部署    回顾优化
+需求调研    设计文档    编码+测试    文档同步    用户验证    发布部署    回顾优化
 ```
 
 ### 阻断条件

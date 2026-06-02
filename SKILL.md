@@ -1,15 +1,47 @@
 ---
-name: security-dev-skills
-description: 安全开发技能体系，包含完整的开发流程和安全工具集成
-version: 0.9.0
-tags: [workflow, security, testing, docs]
+name: dev-workflow
+description: >
+  结构化开发技能体系。当任务涉及：需求开发、功能实现、TDD测试、
+  文档同步、发布部署、代码回顾时自动加载。覆盖完整开发生命周期，
+  包含安全开发作为专项模块。Research→Design→Implement→Verify 流程。
+version: 1.0.0
+tags: [workflow, development, testing, docs, security, tdd, deploy, feature]
 auto-update:
   enabled: true
   check-on-load: true
   method: git
+triggers:
+  # 通用开发流程
+  - "需求开发"
+  - "新功能开发"
+  - "feature development"
+  - "实现需求"
+  - "写实施计划"
+  - "开发计划"
+  - "TDD"
+  - "测试驱动"
+  - "test driven"
+  - "文档同步"
+  - "doc sync"
+  - "发布部署"
+  - "deploy"
+  - "代码回顾"
+  - "retrospective"
+  - "开发流程"
+  - "development workflow"
+  # 安全专项
+  - "安全扫描"
+  - "security scan"
+  - "漏洞检测"
+  - "vulnerability"
+  - "安全工具"
+  - "Nuclei"
+  - "ffuf"
+  - "FOFA"
+  - "资产发现"
 ---
 
-# Security Dev Skills — 体系总览
+# Dev Workflow — 结构化开发技能体系
 
 > 本文档是 skill 体系的入口，所有 agent 必读。
 
@@ -63,6 +95,7 @@ git pull
 2. **流程强制** — 每个阶段有明确的完成标准，不能跳过
 3. **可移植** — 不绑定特定 coding agent，用自然语言描述
 4. **自包含** — 一个 `.md` 文件就是一个完整 skill
+5. **通用优先** — 覆盖通用开发流程，安全作为专项模块
 
 ## 设计来源
 
@@ -82,7 +115,7 @@ git pull
 ```
 Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
    │          │          │           │          │         │          │
-安全调研    设计文档    编码+测试    文档同步    用户验证    发布部署    回顾优化
+需求调研    设计文档    编码+测试    文档同步    用户验证    发布部署    回顾优化
 ```
 
 ### 阻断条件
