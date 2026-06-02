@@ -1,3 +1,10 @@
+---
+name: security-dev-skills
+description: 安全开发技能体系，包含完整的开发流程和安全工具集成
+version: 1.0.0
+tags: [workflow, security, testing, docs]
+---
+
 # Security Dev Skills — 体系总览
 
 > 本文档是 skill 体系的入口，所有 agent 必读。
