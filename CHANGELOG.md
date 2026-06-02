@@ -7,6 +7,20 @@
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-06-02
+
+### Changed
+- 优化 skill 体系，参考优秀 skill 仓库
+  - 增加 HARD-GATE 阻断机制
+  - 增加 Anti-Patterns 反模式
+  - 增加决策树（测试策略）
+  - 增加 SMART 验收条件
+  - 增加 CONTEXT.md（领域知识）
+- 优化 workflow/develop.feature.md
+- 优化 testing/strategy.md
+- 优化 testing/verify.md
+- 优化 docs/sync.md
+
 ## [0.3.0] - 2026-06-02
 
 ### Added
