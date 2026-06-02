@@ -4,9 +4,23 @@
 
 ## 核心理念
 
-1. **流程强制** — 每个阶段有明确的完成标准，不能跳过
-2. **可移植** — 不绑定特定 coding agent，用自然语言描述
-3. **自包含** — 一个 `.md` 文件就是一个完整 skill
+1. **独立自主** — 不依赖外部 skill，吸收优秀设计理念，自己实现
+2. **流程强制** — 每个阶段有明确的完成标准，不能跳过
+3. **可移植** — 不绑定特定 coding agent，用自然语言描述
+4. **自包含** — 一个 `.md` 文件就是一个完整 skill
+
+## 设计来源
+
+我们学习了以下优秀 skill 仓库的设计理念，并集成到自己的 skill 体系中：
+
+| 仓库 | 学到的理念 |
+|------|-----------|
+| [superpowers](https://github.com/obra/superpowers) | HARD-GATE 阻断、Anti-Patterns、详细 Checklist |
+| [gstack](https://github.com/garrytan/gstack) | 模板化、版本管理 |
+| [karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | 行为准则、防 LLM 错误 |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | 分类清晰、渐进式披露、CONTEXT.md |
+
+详见 `docs/best-practices.md`
 
 ## 开发流程
 

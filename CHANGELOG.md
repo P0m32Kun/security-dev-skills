@@ -21,11 +21,13 @@
 - 自动更新机制：
   - 手动更新：`./auto-update.sh`
   - 定时更新：`./auto-update.sh --setup-cron`
-- 更新 SKILL.md 增加外部依赖章节
+- `docs/best-practices.md` — 优秀 skill 设计模式文档
+- 更新 SKILL.md 增加外部依赖章节和设计来源
 
 ### Changed
 - 移除外部 Skill 依赖，保持仓库独立性
 - 将 Semgrep 替换为 Semble（代码搜索工具）
+- 明确设计理念：吸收优点，自己实现，不依赖外部 skill
 
 ## [0.4.0] - 2026-06-02
 
