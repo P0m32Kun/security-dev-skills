@@ -1,1 +1,0 @@
-- 我们常用的一些mcp和工具，contenx7，playwright，agent-browser，codegraph，semble。这些我希望在我按照我们自己的skill的时候一并安装和设置，应该怎么实现呢？后续可能还会增加一下常用的工具，需要有一种方式能够维护外部依赖的skill，mcp或是工具。
