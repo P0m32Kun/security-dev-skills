@@ -5,7 +5,7 @@
 # 用法：
 #   ./install.sh              # 安装所有依赖
 #   ./install.sh --required   # 只安装必需依赖
-#   ./install.sh --tags security  # 安装指定标签的依赖
+#   ./install.sh --update     # 更新 skill 仓库
 #   ./install.sh --dry-run    # 预览安装内容
 #
 # 依赖清单：dependencies.yaml
@@ -25,6 +25,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEPENDENCIES_FILE="$SCRIPT_DIR/dependencies.yaml"
 CLAUDE_CONFIG_DIR="$HOME/.claude"
 MCP_CONFIG_FILE="$CLAUDE_CONFIG_DIR/settings.json"
+SKILL_REPO_URL="git@github.com:P0m32Kun/security-dev-skills.git"
+SKILL_INSTALL_DIR="$HOME/.claude/skills/security-dev-skills"
 
 # 日志函数
 log_info() {
@@ -69,16 +71,13 @@ check_system() {
         exit 1
     fi
 
-    # 检查包管理器
-    if check_dependency brew; then
-        PKG_MANAGER="brew"
-        log_success "包管理器: Homebrew"
-    elif check_dependency apt-get; then
-        PKG_MANAGER="apt"
-        log_success "包管理器: apt"
+    # 检查 Git
+    if check_dependency git; then
+        GIT_VERSION=$(git --version)
+        log_success "Git: $GIT_VERSION"
     else
-        log_warn "未检测到包管理器，部分依赖可能需要手动安装"
-        PKG_MANAGER="manual"
+        log_error "Git 未安装，这是必需依赖"
+        exit 1
     fi
 
     # 检查 Node.js
@@ -89,6 +88,14 @@ check_system() {
         log_warn "Node.js 未安装，部分 MCP 服务器需要 Node.js"
     fi
 
+    # 检查 npm
+    if check_dependency npm; then
+        NPM_VERSION=$(npm --version)
+        log_success "npm: $NPM_VERSION"
+    else
+        log_warn "npm 未安装，部分 MCP 服务器需要 npm"
+    fi
+
     # 检查 Python
     if check_dependency python3; then
         PYTHON_VERSION=$(python3 --version)
@@ -97,13 +104,13 @@ check_system() {
         log_warn "Python 未安装，部分工具需要 Python"
     fi
 
-    # 检查 pip
-    if check_dependency pip3; then
-        log_success "pip3: 已安装"
-    elif check_dependency pip; then
-        log_success "pip: 已安装"
+    # 检查 uv（Python 包管理器）
+    if check_dependency uv; then
+        UV_VERSION=$(uv --version)
+        log_success "uv: $UV_VERSION"
     else
-        log_warn "pip 未安装，部分 Python 工具可能无法安装"
+        log_warn "uv 未安装，将尝试安装"
+        install_uv
     fi
 
     # 检查 Docker
@@ -113,132 +120,61 @@ check_system() {
     else
         log_warn "Docker 未安装，容器化功能将不可用"
     fi
-
-    # 检查 Git
-    if check_dependency git; then
-        GIT_VERSION=$(git --version)
-        log_success "Git: $GIT_VERSION"
-    else
-        log_error "Git 未安装，这是必需依赖"
-        exit 1
-    fi
 }
 
-# 安装 Homebrew 包
-install_brew() {
-    local package=$1
-    if check_dependency "$package"; then
-        log_success "$package 已安装"
-        return 0
-    fi
-
-    log_info "安装 $package..."
-    if brew install "$package"; then
-        log_success "$package 安装成功"
-        return 0
+# 安装 uv（Python 包管理器）
+install_uv() {
+    log_info "安装 uv..."
+    if curl -LsSf https://astral.sh/uv/install.sh | sh; then
+        # 添加到 PATH
+        export PATH="$HOME/.local/bin:$PATH"
+        log_success "uv 安装成功"
     else
-        log_error "$package 安装失败"
-        return 1
-    fi
-}
-
-# 安装 npm 包
-install_npm() {
-    local package=$1
-    local global=${2:-true}
-
-    if $global; then
-        if npm list -g "$package" &> /dev/null; then
-            log_success "$package 已安装"
-            return 0
-        fi
-
-        log_info "安装 $package (全局)..."
-        if npm install -g "$package"; then
-            log_success "$package 安装成功"
-            return 0
-        else
-            log_error "$package 安装失败"
-            return 1
-        fi
-    else
-        log_info "安装 $package (本地)..."
-        if npm install "$package"; then
-            log_success "$package 安装成功"
-            return 0
-        else
-            log_error "$package 安装失败"
-            return 1
-        fi
-    fi
-}
-
-# 安装 pip 包
-install_pip() {
-    local package=$1
-    local pip_cmd="pip3"
-
-    if ! check_dependency pip3; then
-        pip_cmd="pip"
-    fi
-
-    if $pip_cmd show "$package" &> /dev/null; then
-        log_success "$package 已安装"
-        return 0
-    fi
-
-    log_info "安装 $package..."
-    if $pip_cmd install "$package"; then
-        log_success "$package 安装成功"
-        return 0
-    else
-        log_error "$package 安装失败"
-        return 1
-    fi
-}
-
-# 克隆 Git 仓库
-clone_repo() {
-    local url=$1
-    local target_dir=$2
-
-    if [ -d "$target_dir" ]; then
-        log_success "仓库已存在: $target_dir"
-        return 0
-    fi
-
-    log_info "克隆仓库: $url"
-    if git clone "$url" "$target_dir"; then
-        log_success "仓库克隆成功"
-        return 0
-    else
-        log_error "仓库克隆失败"
-        return 1
+        log_error "uv 安装失败"
+        log_warn "请手动安装: https://docs.astral.sh/uv/getting-started/installation/"
     fi
 }
 
 # 安装 MCP 服务器
 install_mcp_server() {
     local name=$1
-    local github_url=$2
-    local command=$3
-    shift 3
-    local args=("$@")
+    local install_cmd=$2
+    shift 2
+    local install_args=("$@")
+    local config_cmd=$1
+    shift
+    local config_args=("$@")
 
     log_info "安装 MCP 服务器: $name"
 
-    # 如果是 npx 命令，检查 npm 包
-    if [ "$command" = "npx" ]; then
-        local package="${args[-1]}"
-        # 移除 -y 参数
-        if [ "${args[0]}" = "-y" ]; then
-            args=("${args[@]:1}")
+    # 检查是否已安装
+    if check_dependency "$name"; then
+        log_success "$name 已安装"
+        return 0
+    fi
+
+    # 执行安装命令
+    if [ "$install_cmd" = "uv" ]; then
+        if uv tool install "${install_args[@]}"; then
+            log_success "$name 安装成功"
+        else
+            log_error "$name 安装失败"
+            return 1
         fi
-        install_npm "$package" false
+    elif [ "$install_cmd" = "npm" ]; then
+        if npm install -g "${install_args[@]}"; then
+            log_success "$name 安装成功"
+        else
+            log_error "$name 安装失败"
+            return 1
+        fi
+    else
+        log_error "未知的安装命令: $install_cmd"
+        return 1
     fi
 
     # 配置 MCP 服务器
-    configure_mcp_server "$name" "$command" "${args[@]}"
+    configure_mcp_server "$name" "$config_cmd" "${config_args[@]}"
 }
 
 # 配置 MCP 服务器
@@ -258,15 +194,15 @@ configure_mcp_server() {
         echo '{"mcpServers":{}}' > "$MCP_CONFIG_FILE"
     fi
 
-    # 使用 Python 更新配置（避免 jq 依赖）
+    # 使用 Python 更新配置
     python3 << EOF
 import json
-import sys
 
 config_file = "$MCP_CONFIG_FILE"
 name = "$name"
 command = "$command"
-args = [$(printf '"%s",' "${args[@]}" | sed 's/,$//')]
+args_str = """$(printf '%s\n' "${args[@]}")"""
+args = [a for a in args_str.split('\n') if a]
 
 try:
     with open(config_file, 'r') as f:
@@ -289,43 +225,115 @@ print(f"MCP 服务器 {name} 配置成功")
 EOF
 }
 
-# 安装工具
-install_tool() {
-    local name=$1
-    local type=$2
-    local package=$3
+# 安装 skill 仓库
+install_skill_repo() {
+    log_info "安装 Security Dev Skills..."
 
-    log_info "安装工具: $name ($type)"
+    # 如果已存在，更新
+    if [ -d "$SKILL_INSTALL_DIR" ]; then
+        log_info "Skill 仓库已存在，更新中..."
+        cd "$SKILL_INSTALL_DIR"
+        git pull
+        log_success "Skill 仓库更新成功"
+        return 0
+    fi
 
-    case $type in
-        brew)
-            install_brew "$package"
-            ;;
-        npm)
-            install_npm "$package"
-            ;;
-        pip)
-            install_pip "$package"
-            ;;
-        manual)
-            log_warn "需要手动安装: $name"
-            log_warn "请参考: $package"
-            ;;
-        *)
-            log_error "未知的安装类型: $type"
-            return 1
-            ;;
-    esac
+    # 克隆仓库
+    log_info "克隆 Skill 仓库..."
+    mkdir -p "$(dirname "$SKILL_INSTALL_DIR")"
+    if git clone "$SKILL_REPO_URL" "$SKILL_INSTALL_DIR"; then
+        log_success "Skill 仓库安装成功"
+    else
+        log_error "Skill 仓库安装失败"
+        return 1
+    fi
 }
 
-# 安装外部 Skill
-install_skill() {
-    local name=$1
-    local github_url=$2
-    local target_dir="$HOME/.claude/skills/$name"
+# 更新 skill 仓库
+update_skill_repo() {
+    log_info "更新 Security Dev Skills..."
 
-    log_info "安装 Skill: $name"
-    clone_repo "$github_url" "$target_dir"
+    if [ ! -d "$SKILL_INSTALL_DIR" ]; then
+        log_error "Skill 仓库未安装"
+        return 1
+    fi
+
+    cd "$SKILL_INSTALL_DIR"
+
+    # 检查是否有更新
+    git fetch
+    LOCAL=$(git rev-parse HEAD)
+    REMOTE=$(git rev-parse @{u})
+
+    if [ "$LOCAL" = "$REMOTE" ]; then
+        log_success "Skill 仓库已是最新版本"
+        return 0
+    fi
+
+    # 拉取更新
+    if git pull; then
+        log_success "Skill 仓库更新成功"
+
+        # 重新安装依赖（如有新增）
+        log_info "检查依赖更新..."
+        install_dependencies
+    else
+        log_error "Skill 仓库更新失败"
+        return 1
+    fi
+}
+
+# 安装依赖
+install_dependencies() {
+    log_info "安装依赖..."
+
+    # 安装必需工具
+    log_info "检查必需工具..."
+    if ! check_dependency git; then
+        log_error "Git 未安装，请先安装 Git"
+        exit 1
+    fi
+
+    # 安装 uv
+    if ! check_dependency uv; then
+        install_uv
+    fi
+
+    # 安装 MCP 服务器
+    log_info "安装 MCP 服务器..."
+
+    # Semble（必需）- 代码搜索
+    install_mcp_server "semble" \
+        "uv" "tool" "install" "semble" \
+        "uvx" "--from" "semble[mcp]" "semble"
+
+    # CodeGraph（必需）- 代码知识图谱
+    install_mcp_server "codegraph" \
+        "npm" "install" "-g" "codegraph" \
+        "codegraph" "serve"
+
+    # Context7（可选）- 实时文档
+    if ! $required_only; then
+        install_mcp_server "context7" \
+            "npm" "install" "-g" "@upstash/context7-mcp" \
+            "npx" "-y" "@upstash/context7-mcp"
+    fi
+
+    # Playwright MCP（可选）- 浏览器自动化
+    if ! $required_only; then
+        install_mcp_server "playwright" \
+            "npm" "install" "-g" "@anthropic-ai/mcp-playwright" \
+            "npx" "-y" "@anthropic-ai/mcp-playwright"
+    fi
+
+    # Agent Browser MCP（可选）- AI 浏览器
+    if ! $required_only; then
+        install_mcp_server "agent-browser" \
+            "npm" "install" "-g" "@anthropic-ai/mcp-browser" \
+            "npx" "-y" "@anthropic-ai/mcp-browser"
+    fi
+
+    log_success "依赖安装完成"
 }
 
 # 显示帮助
@@ -336,15 +344,14 @@ Security Dev Skills — 安装脚本
 用法:
     ./install.sh              安装所有依赖
     ./install.sh --required   只安装必需依赖
-    ./install.sh --tags TAG   安装指定标签的依赖
+    ./install.sh --update     更新 skill 仓库
     ./install.sh --dry-run    预览安装内容
     ./install.sh --help       显示帮助
 
 示例:
-    ./install.sh --required          # 只安装必需依赖
-    ./install.sh --tags security     # 安装安全相关依赖
-    ./install.sh --tags testing      # 安装测试相关依赖
-    ./install.sh --dry-run           # 预览安装内容
+    ./install.sh              # 安装所有依赖
+    ./install.sh --required   # 只安装必需依赖
+    ./install.sh --update     # 更新 skill 仓库
 
 依赖清单: dependencies.yaml
 EOF
@@ -353,7 +360,7 @@ EOF
 # 主安装流程
 main() {
     local required_only=false
-    local tags=""
+    local update_only=false
     local dry_run=false
 
     # 解析参数
@@ -363,9 +370,9 @@ main() {
                 required_only=true
                 shift
                 ;;
-            --tags)
-                tags="$2"
-                shift 2
+            --update)
+                update_only=true
+                shift
                 ;;
             --dry-run)
                 dry_run=true
@@ -392,71 +399,20 @@ main() {
     check_system
 
     echo ""
-    log_info "开始安装依赖..."
+
+    # 如果只是更新
+    if $update_only; then
+        update_skill_repo
+        exit 0
+    fi
+
+    # 安装 skill 仓库
+    install_skill_repo
+
     echo ""
 
-    # 安装必需工具
-    log_info "安装必需工具..."
-    install_tool "git" "brew" "git"
-    install_tool "docker" "manual" "https://docs.docker.com/get-docker/"
-
-    # 安装安全工具
-    if [ -z "$tags" ] || [[ "$tags" == *"security"* ]]; then
-        log_info "安装安全工具..."
-        install_tool "semgrep" "pip" "semgrep"
-    fi
-
-    # 安装测试工具
-    if [ -z "$tags" ] || [[ "$tags" == *"testing"* ]]; then
-        log_info "安装测试工具..."
-        install_tool "playwright-cli" "npm" "@playwright/test"
-    fi
-
-    # 安装 MCP 服务器
-    log_info "安装 MCP 服务器..."
-
-    # CodeGraph（必需）
-    install_mcp_server "codegraph" \
-        "https://github.com/ricocf/codegraph" \
-        "codegraph" "serve"
-
-    # Context7（可选）
-    if ! $required_only; then
-        install_mcp_server "context7" \
-            "https://github.com/upstash/context7" \
-            "npx" "-y" "@upstash/context7-mcp"
-    fi
-
-    # Playwright MCP（可选）
-    if ! $required_only; then
-        install_mcp_server "playwright" \
-            "https://github.com/anthropics/anthropic-quickstarts/tree/main/mcp-playwright" \
-            "npx" "-y" "@anthropic-ai/mcp-playwright"
-    fi
-
-    # Agent Browser MCP（可选）
-    if ! $required_only; then
-        install_mcp_server "agent-browser" \
-            "https://github.com/anthropics/anthropic-quickstarts/tree/main/mcp-browser" \
-            "npx" "-y" "@anthropic-ai/mcp-browser"
-    fi
-
-    # 安装外部 Skill
-    if ! $required_only; then
-        log_info "安装外部 Skill..."
-
-        install_skill "superpowers" \
-            "https://github.com/obra/superpowers"
-
-        install_skill "mattpocock-skills" \
-            "https://github.com/mattpocock/skills"
-
-        install_skill "gstack" \
-            "https://github.com/garrytan/gstack"
-
-        install_skill "karpathy-skills" \
-            "https://github.com/multica-ai/andrej-karpathy-skills"
-    fi
+    # 安装依赖
+    install_dependencies
 
     echo ""
     echo "=========================================="
@@ -466,14 +422,19 @@ main() {
 
     # 显示安装摘要
     log_info "安装摘要："
+    echo "  - Skill 仓库: $SKILL_INSTALL_DIR"
     echo "  - MCP 配置: $MCP_CONFIG_FILE"
-    echo "  - Skill 目录: $HOME/.claude/skills/"
     echo ""
 
     log_info "下一步："
     echo "  1. 重启 Claude Code 以加载 MCP 服务器"
     echo "  2. 运行 `claude mcp list` 查看已配置的 MCP"
     echo "  3. 开始使用 skill 体系：阅读 SKILL.md"
+    echo ""
+
+    log_info "自动更新："
+    echo "  运行 ./install.sh --update 可更新 skill 仓库"
+    echo "  或设置定时任务自动更新"
     echo ""
 }
 

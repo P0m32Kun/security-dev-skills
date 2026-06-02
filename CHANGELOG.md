@@ -13,12 +13,19 @@
 - 外部依赖管理系统
   - `dependencies.yaml` — 依赖清单
   - `install.sh` — 一键安装脚本
+  - `auto-update.sh` — 自动更新脚本
   - `docs/dependencies.md` — 依赖管理文档
 - 支持的外部依赖：
-  - MCP 服务器：CodeGraph, Context7, Playwright, Agent Browser
-  - 工具：Semgrep, Docker, Git
-  - 外部 Skill：Superpowers, mattpocock/skills, gstack, Karpathy skills
+  - MCP 服务器：Semble, CodeGraph, Context7, Playwright, Agent Browser
+  - 工具：uv, Docker, Git
+- 自动更新机制：
+  - 手动更新：`./auto-update.sh`
+  - 定时更新：`./auto-update.sh --setup-cron`
 - 更新 SKILL.md 增加外部依赖章节
+
+### Changed
+- 移除外部 Skill 依赖，保持仓库独立性
+- 将 Semgrep 替换为 Semble（代码搜索工具）
 
 ## [0.4.0] - 2026-06-02
 

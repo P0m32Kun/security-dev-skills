@@ -113,10 +113,13 @@ outputs:                      # 可选，输出契约
 
 ## 外部依赖
 
+本仓库是**独立的 skill 仓库**，不依赖外部 skill。只依赖必要的工具和 MCP 服务器。
+
 ### MCP 服务器
 
 | MCP | 用途 | 必需 |
 |-----|------|------|
+| Semble | 快速代码搜索（节省 98% token） | ✓ |
 | CodeGraph | 代码知识图谱、符号搜索 | ✓ |
 | Context7 | 实时文档查询 | — |
 | Playwright | 浏览器自动化 | — |
@@ -126,18 +129,9 @@ outputs:                      # 可选，输出契约
 
 | 工具 | 用途 | 必需 |
 |------|------|------|
-| Semgrep | 静态代码分析 | ✓ |
+| uv | Python 包管理器 | ✓ |
 | Docker | 容器化 | ✓ |
 | Git | 版本控制 | ✓ |
-
-### 外部 Skill
-
-| Skill | 用途 |
-|-------|------|
-| Superpowers | 工作流自动化 |
-| mattpocock/skills | 工程工具 |
-| gstack | 浏览器/QA |
-| Karpathy skills | 行为准则 |
 
 ### 安装依赖
 
@@ -148,9 +142,8 @@ outputs:                      # 可选，输出契约
 # 只安装必需依赖
 ./install.sh --required
 
-# 安装指定类别
-./install.sh --tags security
-./install.sh --tags testing
+# 更新 skill 仓库
+./auto-update.sh
 ```
 
 详见 `docs/dependencies.md`
@@ -168,8 +161,15 @@ outputs:                      # 可选，输出契约
 
 直接阅读对应的 `.md` 文件，按流程执行。
 
-## 与外部 Skill 的协作
+### 自动更新
 
-- **Design 阶段**：可使用 superpowers 的 `brainstorming` + `writing-plans`
-- **Implement 阶段**：可使用 mattpocock 的 `tdd` 进行测试驱动开发
-- **其他 skill**：本仓库定义"做什么"和"完成标准"，"怎么做"可引用外部 skill
+```bash
+# 检查更新
+./auto-update.sh --check
+
+# 执行更新
+./auto-update.sh
+
+# 设置定时任务（每天凌晨 3 点）
+./auto-update.sh --setup-cron
+```

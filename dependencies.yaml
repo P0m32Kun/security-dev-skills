@@ -1,16 +1,20 @@
 # Security Dev Skills — 外部依赖清单
 #
-# 本文件定义了 skill 体系依赖的外部工具、MCP 服务器、skill 等。
+# 本文件定义了 skill 体系依赖的外部工具和 MCP 服务器。
 # 安装脚本会根据本文件自动安装和配置依赖。
+#
+# 注意：我们是独立的 skill 仓库，不依赖外部 skill。
+# 只依赖必要的工具和 MCP 服务器。
 #
 # 格式说明：
 #   name: 依赖名称（唯一标识）
-#   type: 依赖类型（mcp | tool | skill | plugin）
+#   type: 依赖类型（mcp | tool）
 #   description: 简要描述
 #   source: 安装来源
 #     github: GitHub 仓库地址
 #     npm: npm 包名
 #     pip: pip 包名
+#     pypi: PyPI 包名（使用 uv/pip 安装）
 #     brew: Homebrew 包名
 #     manual: 手动安装
 #   version: 版本号（可选）
@@ -27,17 +31,38 @@ mcp_servers:
     description: 代码知识图谱，提供符号搜索、调用关系、影响分析
     source:
       github: "https://github.com/ricocf/codegraph"
+    install:
+      command: "npm"
+      args: ["install", "-g", "codegraph"]
     config:
       command: "codegraph"
       args: ["serve"]
     required: true
     tags: [code-analysis, search]
 
+  - name: semble
+    type: mcp
+    description: 快速代码搜索，比 grep+read 节省 98% token
+    source:
+      github: "https://github.com/MinishLab/semble"
+      pypi: "semble[mcp]"
+    install:
+      command: "uv"
+      args: ["tool", "install", "semble"]
+    config:
+      command: "uvx"
+      args: ["--from", "semble[mcp]", "semble"]
+    required: true
+    tags: [code-search, search, token-saving]
+
   - name: context7
     type: mcp
     description: 实时文档查询，获取最新的库文档
     source:
       github: "https://github.com/upstash/context7"
+    install:
+      command: "npm"
+      args: ["install", "-g", "@upstash/context7-mcp"]
     config:
       command: "npx"
       args: ["-y", "@upstash/context7-mcp"]
@@ -49,6 +74,9 @@ mcp_servers:
     description: 浏览器自动化，用于 E2E 测试和网页操作
     source:
       github: "https://github.com/anthropics/anthropic-quickstarts/tree/main/mcp-playwright"
+    install:
+      command: "npm"
+      args: ["install", "-g", "@anthropic-ai/mcp-playwright"]
     config:
       command: "npx"
       args: ["-y", "@anthropic-ai/mcp-playwright"]
@@ -60,6 +88,9 @@ mcp_servers:
     description: AI Agent 浏览器，用于智能网页操作
     source:
       github: "https://github.com/anthropics/anthropic-quickstarts/tree/main/mcp-browser"
+    install:
+      command: "npm"
+      args: ["install", "-g", "@anthropic-ai/mcp-browser"]
     config:
       command: "npx"
       args: ["-y", "@anthropic-ai/mcp-browser"]
@@ -70,24 +101,15 @@ mcp_servers:
 # 工具
 # ============================================================
 tools:
-  - name: semgrep
+  - name: uv
     type: tool
-    description: 静态代码分析，用于安全扫描
+    description: Python 包管理器（推荐，用于安装 Semble 等）
     source:
-      pip: "semgrep"
-      brew: "semgrep"
-    version: "latest"
+      manual: "https://docs.astral.sh/uv/getting-started/installation/"
+    install:
+      script: "curl -LsSf https://astral.sh/uv/install.sh | sh"
     required: true
-    tags: [security, sast, scanning]
-
-  - name: playwright-cli
-    type: tool
-    description: Playwright 命令行工具
-    source:
-      npm: "@playwright/test"
-    version: "latest"
-    required: false
-    tags: [testing, e2e, browser]
+    tags: [python, package-manager]
 
   - name: docker
     type: tool
@@ -104,53 +126,3 @@ tools:
       brew: "git"
     required: true
     tags: [vcs]
-
-# ============================================================
-# 外部 Skill
-# ============================================================
-skills:
-  - name: superpowers
-    type: skill
-    description: 端到端开发工作流自动化
-    source:
-      github: "https://github.com/obra/superpowers"
-    required: false
-    tags: [workflow, planning, debugging]
-
-  - name: mattpocock-skills
-    type: skill
-    description: 领域特定工程工具（TDD, 诊断, 分诊）
-    source:
-      github: "https://github.com/mattpocock/skills"
-    required: false
-    tags: [engineering, tdd, diagnosis]
-
-  - name: gstack
-    type: skill
-    description: 浏览器自动化、QA 测试、设计工具
-    source:
-      github: "https://github.com/garrytan/gstack"
-    required: false
-    tags: [browser, qa, design]
-
-  - name: karpathy-skills
-    type: skill
-    description: LLM 编码行为准则
-    source:
-      github: "https://github.com/multica-ai/andrej-karpathy-skills"
-    required: false
-    tags: [guidelines, best-practices]
-
-# ============================================================
-# 插件（Claude Code 特定）
-# ============================================================
-plugins:
-  - name: claude-code-skills
-    type: plugin
-    description: Claude Code skill 插件系统
-    source:
-      github: "https://github.com/mattpocock/skills"
-    config:
-      path: "~/.claude/skills"
-    required: false
-    tags: [claude-code, plugin]
