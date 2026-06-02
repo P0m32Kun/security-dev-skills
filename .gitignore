@@ -1,0 +1,36 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# Go
+vendor/
+
+# Build
+dist/
+build/
+*.exe
+
+# Logs
+*.log
+
+# Secrets
+.env
+.env.local
+*.pem
+*.key
