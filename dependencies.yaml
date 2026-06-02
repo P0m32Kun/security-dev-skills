@@ -1,0 +1,156 @@
+# Security Dev Skills — 外部依赖清单
+#
+# 本文件定义了 skill 体系依赖的外部工具、MCP 服务器、skill 等。
+# 安装脚本会根据本文件自动安装和配置依赖。
+#
+# 格式说明：
+#   name: 依赖名称（唯一标识）
+#   type: 依赖类型（mcp | tool | skill | plugin）
+#   description: 简要描述
+#   source: 安装来源
+#     github: GitHub 仓库地址
+#     npm: npm 包名
+#     pip: pip 包名
+#     brew: Homebrew 包名
+#     manual: 手动安装
+#   version: 版本号（可选）
+#   config: 配置项（可选）
+#   required: 是否必需（true | false）
+#   tags: 标签（用于分类）
+
+# ============================================================
+# MCP 服务器
+# ============================================================
+mcp_servers:
+  - name: codegraph
+    type: mcp
+    description: 代码知识图谱，提供符号搜索、调用关系、影响分析
+    source:
+      github: "https://github.com/ricocf/codegraph"
+    config:
+      command: "codegraph"
+      args: ["serve"]
+    required: true
+    tags: [code-analysis, search]
+
+  - name: context7
+    type: mcp
+    description: 实时文档查询，获取最新的库文档
+    source:
+      github: "https://github.com/upstash/context7"
+    config:
+      command: "npx"
+      args: ["-y", "@upstash/context7-mcp"]
+    required: false
+    tags: [documentation, research]
+
+  - name: playwright
+    type: mcp
+    description: 浏览器自动化，用于 E2E 测试和网页操作
+    source:
+      github: "https://github.com/anthropics/anthropic-quickstarts/tree/main/mcp-playwright"
+    config:
+      command: "npx"
+      args: ["-y", "@anthropic-ai/mcp-playwright"]
+    required: false
+    tags: [testing, browser, e2e]
+
+  - name: agent-browser
+    type: mcp
+    description: AI Agent 浏览器，用于智能网页操作
+    source:
+      github: "https://github.com/anthropics/anthropic-quickstarts/tree/main/mcp-browser"
+    config:
+      command: "npx"
+      args: ["-y", "@anthropic-ai/mcp-browser"]
+    required: false
+    tags: [browser, automation]
+
+# ============================================================
+# 工具
+# ============================================================
+tools:
+  - name: semgrep
+    type: tool
+    description: 静态代码分析，用于安全扫描
+    source:
+      pip: "semgrep"
+      brew: "semgrep"
+    version: "latest"
+    required: true
+    tags: [security, sast, scanning]
+
+  - name: playwright-cli
+    type: tool
+    description: Playwright 命令行工具
+    source:
+      npm: "@playwright/test"
+    version: "latest"
+    required: false
+    tags: [testing, e2e, browser]
+
+  - name: docker
+    type: tool
+    description: 容器化工具
+    source:
+      manual: "https://docs.docker.com/get-docker/"
+    required: true
+    tags: [container, deployment]
+
+  - name: git
+    type: tool
+    description: 版本控制
+    source:
+      brew: "git"
+    required: true
+    tags: [vcs]
+
+# ============================================================
+# 外部 Skill
+# ============================================================
+skills:
+  - name: superpowers
+    type: skill
+    description: 端到端开发工作流自动化
+    source:
+      github: "https://github.com/obra/superpowers"
+    required: false
+    tags: [workflow, planning, debugging]
+
+  - name: mattpocock-skills
+    type: skill
+    description: 领域特定工程工具（TDD, 诊断, 分诊）
+    source:
+      github: "https://github.com/mattpocock/skills"
+    required: false
+    tags: [engineering, tdd, diagnosis]
+
+  - name: gstack
+    type: skill
+    description: 浏览器自动化、QA 测试、设计工具
+    source:
+      github: "https://github.com/garrytan/gstack"
+    required: false
+    tags: [browser, qa, design]
+
+  - name: karpathy-skills
+    type: skill
+    description: LLM 编码行为准则
+    source:
+      github: "https://github.com/multica-ai/andrej-karpathy-skills"
+    required: false
+    tags: [guidelines, best-practices]
+
+# ============================================================
+# 插件（Claude Code 特定）
+# ============================================================
+plugins:
+  - name: claude-code-skills
+    type: plugin
+    description: Claude Code skill 插件系统
+    source:
+      github: "https://github.com/mattpocock/skills"
+    config:
+      path: "~/.claude/skills"
+    required: false
+    tags: [claude-code, plugin]

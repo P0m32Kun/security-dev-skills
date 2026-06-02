@@ -1,2 +1,1 @@
-- 增加反思环节，每次开发完成后，需要回顾过程中碰到的问题，工具调用失败，经常出现的报错，踩过的坑，或者哪个skill不好用，造成了时间和token的浪费，需要指出来，我们好优化skill
-- 参考优秀的skill，包括https://github.com/obra/superpowers，https://github.com/garrytan/gstack，https://github.com/multica-ai/andrej-karpathy-skills，https://github.com/mattpocock/skills
+- 我们常用的一些mcp和工具，contenx7，playwright，agent-browser，codegraph，semble。这些我希望在我按照我们自己的skill的时候一并安装和设置，应该怎么实现呢？后续可能还会增加一下常用的工具，需要有一种方式能够维护外部依赖的skill，mcp或是工具。

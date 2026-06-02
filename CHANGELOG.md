@@ -7,6 +7,19 @@
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-02
+
+### Added
+- 外部依赖管理系统
+  - `dependencies.yaml` — 依赖清单
+  - `install.sh` — 一键安装脚本
+  - `docs/dependencies.md` — 依赖管理文档
+- 支持的外部依赖：
+  - MCP 服务器：CodeGraph, Context7, Playwright, Agent Browser
+  - 工具：Semgrep, Docker, Git
+  - 外部 Skill：Superpowers, mattpocock/skills, gstack, Karpathy skills
+- 更新 SKILL.md 增加外部依赖章节
+
 ## [0.4.0] - 2026-06-02
 
 ### Changed

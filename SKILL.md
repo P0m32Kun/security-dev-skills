@@ -111,13 +111,58 @@ outputs:                      # 可选，输出契约
 |-------|------|------|
 | deploy | `release/deploy.md` | 发布部署流程 |
 
+## 外部依赖
+
+### MCP 服务器
+
+| MCP | 用途 | 必需 |
+|-----|------|------|
+| CodeGraph | 代码知识图谱、符号搜索 | ✓ |
+| Context7 | 实时文档查询 | — |
+| Playwright | 浏览器自动化 | — |
+| Agent Browser | AI 浏览器 | — |
+
+### 工具
+
+| 工具 | 用途 | 必需 |
+|------|------|------|
+| Semgrep | 静态代码分析 | ✓ |
+| Docker | 容器化 | ✓ |
+| Git | 版本控制 | ✓ |
+
+### 外部 Skill
+
+| Skill | 用途 |
+|-------|------|
+| Superpowers | 工作流自动化 |
+| mattpocock/skills | 工程工具 |
+| gstack | 浏览器/QA |
+| Karpathy skills | 行为准则 |
+
+### 安装依赖
+
+```bash
+# 安装所有依赖
+./install.sh
+
+# 只安装必需依赖
+./install.sh --required
+
+# 安装指定类别
+./install.sh --tags security
+./install.sh --tags testing
+```
+
+详见 `docs/dependencies.md`
+
 ## 使用方式
 
 ### 新需求开发
 
-1. 阅读 `workflow/develop.feature.md`
-2. 按流程依次执行各阶段
-3. 每个阶段使用对应的 skill
+1. 安装依赖：`./install.sh`
+2. 阅读 `workflow/develop.feature.md`
+3. 按流程依次执行各阶段
+4. 每个阶段使用对应的 skill
 
 ### 单独使用某个 skill
 
