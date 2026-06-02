@@ -39,10 +39,10 @@
 
 ```bash
 # 1. 克隆仓库
-git clone git@github.com:P0m32Kun/security-dev-skills.git ~/.security-dev-skills
+git clone git@github.com:P0m32Kun/p-skills.git ~/.p-skills
 
 # 2. 进入目录
-cd ~/.security-dev-skills
+cd ~/.p-skills
 
 # 3. 运行安装脚本（自动检测已安装的 agent 并创建软链接）
 ./install.sh
@@ -72,13 +72,13 @@ cd ~/.security-dev-skills
 **打开你的 coding agent，输入：**
 
 ```
-请阅读 https://github.com/P0m32Kun/security-dev-skills/blob/main/INSTALL.md 并按照说明安装。
+请阅读 https://github.com/P0m32Kun/p-skills/blob/main/INSTALL.md 并按照说明安装。
 ```
 
 **或者直接粘贴 INSTALL.md 的内容给 agent。**
 
 Agent 会自动：
-1. 克隆仓库到 `~/.security-dev-skills`
+1. 克隆仓库到 `~/.p-skills`
 2. 运行安装脚本
 3. 创建软链接到自己的 skill 目录
 4. 配置 MCP 服务器
@@ -87,10 +87,10 @@ Agent 会自动：
 
 ```bash
 # 检查仓库是否克隆成功
-ls ~/.security-dev-skills/SKILL.md
+ls ~/.p-skills/SKILL.md
 
 # 检查软链接（以 Claude Code 为例）
-ls -la ~/.claude/skills/security-dev-skills
+ls -la ~/.claude/skills/p-skills
 
 # 检查 MCP 配置（Claude Code）
 cat ~/.claude/settings.json | grep -A 3 "mcpServers"
@@ -164,7 +164,7 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 ## 目录结构
 
 ```
-security-dev-skills/
+p-skills/
 ├── SKILL.md                      # 体系总览（必读）
 ├── CONTEXT.md                    # 领域知识
 ├── INSTALL.md                    # 安装说明（给 agent 用）

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Security Dev Skills — 依赖检查脚本
+# P Skills — 依赖检查脚本
 #
 # 用法：
 #   ./check-deps.sh          # 检查依赖并更新缓存

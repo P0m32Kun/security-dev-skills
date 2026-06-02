@@ -1,22 +1,22 @@
-# Security Dev Skills — 安装说明
+# P Skills — 安装说明
 
 > 本文件供 coding agent 自动安装使用。
 > 人类用户请参考 README.md。
 
 ## 给 Agent 的指令
 
-如果你是一个 coding agent，请按照以下步骤自动安装 Security Dev Skills：
+如果你是一个 coding agent，请按照以下步骤自动安装 P Skills：
 
 ### 步骤 1：克隆仓库
 
 ```bash
-git clone git@github.com:P0m32Kun/security-dev-skills.git ~/.security-dev-skills
+git clone git@github.com:P0m32Kun/p-skills.git ~/.p-skills
 ```
 
 ### 步骤 2：进入目录
 
 ```bash
-cd ~/.security-dev-skills
+cd ~/.p-skills
 ```
 
 ### 步骤 3：运行安装脚本
@@ -41,13 +41,13 @@ cd ~/.security-dev-skills
 在项目的 `CLAUDE.md` 中添加：
 
 ```markdown
-@~/.security-dev-skills/SKILL.md
+@~/.p-skills/SKILL.md
 ```
 
 或在 `~/.claude/CLAUDE.md` 中添加（全局生效）：
 
 ```markdown
-@~/.security-dev-skills/SKILL.md
+@~/.p-skills/SKILL.md
 ```
 
 #### Codex (OpenAI)
@@ -55,15 +55,15 @@ cd ~/.security-dev-skills
 在项目的 `AGENTS.md` 中添加：
 
 ```markdown
-# Security Dev Skills
+# P Skills
 
-参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+参考 ~/.p-skills/SKILL.md 中的开发流程。
 
 ## 开发流程
 
 Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
 
-每个阶段有明确的完成标准，不能跳过。详见 ~/.security-dev-skills/workflow/develop.feature.md
+每个阶段有明确的完成标准，不能跳过。详见 ~/.p-skills/workflow/develop.feature.md
 ```
 
 #### Cursor
@@ -71,15 +71,15 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 在项目的 `.cursorrules` 中添加：
 
 ```markdown
-# Security Dev Skills
+# P Skills
 
-参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+参考 ~/.p-skills/SKILL.md 中的开发流程。
 
 ## 开发流程
 
 Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
 
-每个阶段有明确的完成标准，不能跳过。详见 ~/.security-dev-skills/workflow/develop.feature.md
+每个阶段有明确的完成标准，不能跳过。详见 ~/.p-skills/workflow/develop.feature.md
 ```
 
 #### OpenCode
@@ -87,15 +87,15 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 在项目的 `AGENTS.md` 中添加：
 
 ```markdown
-# Security Dev Skills
+# P Skills
 
-参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+参考 ~/.p-skills/SKILL.md 中的开发流程。
 
 ## 开发流程
 
 Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
 
-每个阶段有明确的完成标准，不能跳过。详见 ~/.security-dev-skills/workflow/develop.feature.md
+每个阶段有明确的完成标准，不能跳过。详见 ~/.p-skills/workflow/develop.feature.md
 ```
 
 #### Windsurf / Codeium
@@ -103,15 +103,15 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 在项目的 `.windsurfrules` 中添加：
 
 ```markdown
-# Security Dev Skills
+# P Skills
 
-参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+参考 ~/.p-skills/SKILL.md 中的开发流程。
 
 ## 开发流程
 
 Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
 
-每个阶段有明确的完成标准，不能跳过。详见 ~/.security-dev-skills/workflow/develop.feature.md
+每个阶段有明确的完成标准，不能跳过。详见 ~/.p-skills/workflow/develop.feature.md
 ```
 
 #### Aider
@@ -120,7 +120,7 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 
 ```yaml
 read:
-  - ~/.security-dev-skills/SKILL.md
+  - ~/.p-skills/SKILL.md
 ```
 
 #### 其他 Agent
@@ -128,9 +128,9 @@ read:
 将以下内容添加到你的 agent 配置文件中：
 
 ```markdown
-# Security Dev Skills
+# P Skills
 
-参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+参考 ~/.p-skills/SKILL.md 中的开发流程。
 
 ## 开发流程
 
@@ -140,11 +140,11 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 
 ## 核心 Skill
 
-- 编排器：~/.security-dev-skills/workflow/develop.feature.md
-- 回顾：~/.security-dev-skills/workflow/retrospective.md
-- 文档同步：~/.security-dev-skills/docs/sync.md
-- 测试策略：~/.security-dev-skills/testing/strategy.md
-- 功能验证：~/.security-dev-skills/testing/verify.md
+- 编排器：~/.p-skills/workflow/develop.feature.md
+- 回顾：~/.p-skills/workflow/retrospective.md
+- 文档同步：~/.p-skills/docs/sync.md
+- 测试策略：~/.p-skills/testing/strategy.md
+- 功能验证：~/.p-skills/testing/verify.md
 ```
 
 ### 步骤 5：告知用户
@@ -152,15 +152,15 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 安装完成后，告知用户：
 
 ```
-Security Dev Skills 安装完成！
+P Skills 安装完成！
 
 已安装：
-- Skill 仓库：~/.security-dev-skills
+- Skill 仓库：~/.p-skills
 - MCP 服务器：Semble（代码搜索）、CodeGraph（代码知识图谱）
 
 下一步：
 1. 重启你的 coding agent 以加载配置
-2. 阅读 ~/.security-dev-skills/SKILL.md 了解开发流程
+2. 阅读 ~/.p-skills/SKILL.md 了解开发流程
 3. 开始使用：Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective
 ```
 
@@ -205,7 +205,7 @@ Security Dev Skills 安装完成！
 ssh -T git@github.com
 
 # 如果没有 SSH 密钥，使用 HTTPS
-git clone https://github.com/P0m32Kun/security-dev-skills.git ~/.security-dev-skills
+git clone https://github.com/P0m32Kun/p-skills.git ~/.p-skills
 ```
 
 ### 问题：install.sh 权限不足

@@ -1,6 +1,6 @@
 # Changelog
 
-本文件记录 Security Dev Skills 的所有重要变更。
+本文件记录 P Skills 的所有重要变更。
 
 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.0.0/)，
 版本号遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
@@ -95,7 +95,7 @@
 
 ### Changed
 - 优化 README.md 结构，更清晰的安装指引
-- 安装目录改为 ~/.security-dev-skills（更通用）
+- 安装目录改为 ~/.p-skills（更通用）
 
 ## [0.5.0] - 2026-06-02
 

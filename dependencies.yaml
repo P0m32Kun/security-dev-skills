@@ -1,4 +1,4 @@
-# Security Dev Skills — 外部依赖清单
+# P Skills — 外部依赖清单
 #
 # 本文件定义了 skill 体系依赖的外部工具和 MCP 服务器。
 # 安装脚本会根据本文件自动安装和配置依赖。

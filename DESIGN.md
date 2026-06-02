@@ -1,4 +1,4 @@
-# Security Dev Skills — 设计文档
+# P Skills — 设计文档
 
 > 创建日期：2026-06-02
 > 状态：已完成（2026-06-02）
@@ -32,7 +32,7 @@
 - **领域 Skill** 按关注域分组，每个 skill 可独立使用，也可被编排器调用
 
 ```
-security-dev-skills/
+p-skills/
 ├── README.md                         # 仓库说明 + 快速开始
 ├── SKILL.md                          # 体系总览（必读）
 ├── DESIGN.md                         # 本设计文档（实施后可归档）

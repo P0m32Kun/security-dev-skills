@@ -83,7 +83,7 @@ fi
 git pull
 ```
 
-然后告知用户：`✅ Security Dev Skills 已更新到最新版本`
+然后告知用户：`✅ P Skills 已更新到最新版本`
 
 如果输出 `UP_TO_DATE`，跳过更新，继续加载。
 

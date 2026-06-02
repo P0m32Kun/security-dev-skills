@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Security Dev Skills — 自动更新脚本
+# P Skills — 自动更新脚本
 #
 # 用法：
 #   ./auto-update.sh              # 检查并更新
@@ -11,8 +11,8 @@
 set -e
 
 # 配置
-SKILL_DIR="$HOME/.security-dev-skills"
-LOG_FILE="$HOME/.cache/security-dev-skills/update.log"
+SKILL_DIR="$HOME/.p-skills"
+LOG_FILE="$HOME/.cache/p-skills/update.log"
 
 # 颜色定义
 RED='\033[0;31m'
@@ -132,7 +132,7 @@ setup_cron() {
 
     # 显示当前定时任务
     log_info "当前定时任务："
-    crontab -l 2>/dev/null | grep -E "security-dev-skills|auto-update" || echo "无"
+    crontab -l 2>/dev/null | grep -E "p-skills|auto-update" || echo "无"
 }
 
 # 移除定时任务
@@ -152,7 +152,7 @@ remove_cron() {
 # 显示帮助
 show_help() {
     cat << EOF
-Security Dev Skills — 自动更新脚本
+P Skills — 自动更新脚本
 
 用法:
     ./auto-update.sh              检查并更新

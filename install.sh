@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Security Dev Skills — 安装脚本
+# P Skills — 安装脚本
 #
 # 用法：
 #   ./install.sh              # 安装 + 配置 agent
@@ -22,8 +22,8 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 # 配置
-SKILL_REPO_URL="git@github.com:P0m32Kun/security-dev-skills.git"
-SKILL_INSTALL_DIR="$HOME/.security-dev-skills"
+SKILL_REPO_URL="git@github.com:P0m32Kun/p-skills.git"
+SKILL_INSTALL_DIR="$HOME/.p-skills"
 
 # 日志函数
 log_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
@@ -35,16 +35,16 @@ log_error() { echo -e "${RED}[✗]${NC} $1"; }
 get_agent_skill_dir() {
     local agent=$1
     case $agent in
-        claude-code) echo "$HOME/.claude/skills/security-dev-skills" ;;
-        codex)       echo "$HOME/.codex/skills/security-dev-skills" ;;
-        cursor)      echo "$HOME/.cursor/skills/security-dev-skills" ;;
-        opencode)    echo "$HOME/.opencode/skills/security-dev-skills" ;;
-        windsurf)    echo "$HOME/.windsurf/skills/security-dev-skills" ;;
-        aider)       echo "$HOME/.aider/skills/security-dev-skills" ;;
-        cline)       echo "$HOME/.cline/skills/security-dev-skills" ;;
-        continue)    echo "$HOME/.continue/skills/security-dev-skills" ;;
-        pi)          echo "$HOME/.pi/agent/skills/security-dev-skills" ;;
-        generic)     echo "$HOME/.coding-agent/skills/security-dev-skills" ;;
+        claude-code) echo "$HOME/.claude/skills/p-skills" ;;
+        codex)       echo "$HOME/.codex/skills/p-skills" ;;
+        cursor)      echo "$HOME/.cursor/skills/p-skills" ;;
+        opencode)    echo "$HOME/.opencode/skills/p-skills" ;;
+        windsurf)    echo "$HOME/.windsurf/skills/p-skills" ;;
+        aider)       echo "$HOME/.aider/skills/p-skills" ;;
+        cline)       echo "$HOME/.cline/skills/p-skills" ;;
+        continue)    echo "$HOME/.continue/skills/p-skills" ;;
+        pi)          echo "$HOME/.pi/agent/skills/p-skills" ;;
+        generic)     echo "$HOME/.coding-agent/skills/p-skills" ;;
         *)           echo "" ;;
     esac
 }
@@ -55,7 +55,7 @@ get_agent_config_file() {
     case $agent in
         claude-code) echo "$HOME/.claude/CLAUDE.md" ;;
         codex)       echo "$HOME/.codex/AGENTS.md" ;;
-        cursor)      echo "$HOME/.cursor/rules/security-dev-skills.mdc" ;;
+        cursor)      echo "$HOME/.cursor/rules/p-skills.mdc" ;;
         opencode)    echo "$HOME/.opencode/AGENTS.md" ;;
         windsurf)    echo "$HOME/.windsurf/rules" ;;
         aider)       echo "$HOME/.aider.conf.yml" ;;
@@ -72,16 +72,16 @@ list_agents() {
     echo ""
     echo "  Agent          Skill 目录"
     echo "  ─────────────  ─────────────────────────────────────"
-    echo "  claude-code    ~/.claude/skills/security-dev-skills"
-    echo "  codex          ~/.codex/skills/security-dev-skills"
-    echo "  cursor         ~/.cursor/skills/security-dev-skills"
-    echo "  opencode       ~/.opencode/skills/security-dev-skills"
-    echo "  windsurf       ~/.windsurf/skills/security-dev-skills"
-    echo "  aider          ~/.aider/skills/security-dev-skills"
-    echo "  cline          ~/.cline/skills/security-dev-skills"
-    echo "  continue       ~/.continue/skills/security-dev-skills"
-    echo "  pi             ~/.pi/agent/skills/security-dev-skills"
-    echo "  generic        ~/.coding-agent/skills/security-dev-skills"
+    echo "  claude-code    ~/.claude/skills/p-skills"
+    echo "  codex          ~/.codex/skills/p-skills"
+    echo "  cursor         ~/.cursor/skills/p-skills"
+    echo "  opencode       ~/.opencode/skills/p-skills"
+    echo "  windsurf       ~/.windsurf/skills/p-skills"
+    echo "  aider          ~/.aider/skills/p-skills"
+    echo "  cline          ~/.cline/skills/p-skills"
+    echo "  continue       ~/.continue/skills/p-skills"
+    echo "  pi             ~/.pi/agent/skills/p-skills"
+    echo "  generic        ~/.coding-agent/skills/p-skills"
     echo ""
     echo "使用方式："
     echo "  ./install.sh                    # 安装到所有检测到的 agent"
@@ -154,7 +154,7 @@ configure_agent_rules() {
     mkdir -p "$(dirname "$config_file")"
 
     # 检查是否已配置
-    if [ -f "$config_file" ] && grep -q "security-dev-skills" "$config_file" 2>/dev/null; then
+    if [ -f "$config_file" ] && grep -q "p-skills" "$config_file" 2>/dev/null; then
         log_success "$agent 配置文件已包含引用"
         return 0
     fi
@@ -164,21 +164,21 @@ configure_agent_rules() {
         claude-code)
             cat >> "$config_file" << 'EOF'
 
-# Security Dev Skills
-@~/.security-dev-skills/SKILL.md
+# P Skills
+@~/.p-skills/SKILL.md
 EOF
             ;;
         cursor)
             # Cursor 使用 .mdc 格式
             cat > "$config_file" << 'EOF'
 ---
-description: Security Dev Skills - 标准化开发流程
+description: P Skills - 标准化开发流程
 globs:
 ---
 
-# Security Dev Skills
+# P Skills
 
-参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+参考 ~/.p-skills/SKILL.md 中的开发流程。
 
 ## 开发流程
 
@@ -188,28 +188,28 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 
 ## 核心 Skill
 
-- 编排器：~/.security-dev-skills/workflow/develop.feature.md
-- 回顾：~/.security-dev-skills/workflow/retrospective.md
-- 文档同步：~/.security-dev-skills/docs/sync.md
-- 测试策略：~/.security-dev-skills/testing/strategy.md
-- 功能验证：~/.security-dev-skills/testing/verify.md
+- 编排器：~/.p-skills/workflow/develop.feature.md
+- 回顾：~/.p-skills/workflow/retrospective.md
+- 文档同步：~/.p-skills/docs/sync.md
+- 测试策略：~/.p-skills/testing/strategy.md
+- 功能验证：~/.p-skills/testing/verify.md
 EOF
             ;;
         aider)
             cat >> "$config_file" << 'EOF'
 
-# Security Dev Skills
+# P Skills
 read:
-  - ~/.security-dev-skills/SKILL.md
+  - ~/.p-skills/SKILL.md
 EOF
             ;;
         pi)
             # Pi 使用 instructions.md
             cat >> "$config_file" << 'EOF'
 
-# Security Dev Skills
+# P Skills
 
-参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+参考 ~/.p-skills/SKILL.md 中的开发流程。
 
 ## 开发流程
 
@@ -219,18 +219,18 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 
 ## 核心 Skill
 
-- 编排器：~/.security-dev-skills/workflow/develop.feature.md
-- 回顾：~/.security-dev-skills/workflow/retrospective.md
-- 文档同步：~/.security-dev-skills/docs/sync.md
-- 测试策略：~/.security-dev-skills/testing/strategy.md
-- 功能验证：~/.security-dev-skills/testing/verify.md
+- 编排器：~/.p-skills/workflow/develop.feature.md
+- 回顾：~/.p-skills/workflow/retrospective.md
+- 文档同步：~/.p-skills/docs/sync.md
+- 测试策略：~/.p-skills/testing/strategy.md
+- 功能验证：~/.p-skills/testing/verify.md
 EOF
             ;;
         *)
             cat >> "$config_file" << 'EOF'
 
-# Security Dev Skills
-参考 ~/.security-dev-skills/SKILL.md 中的开发流程。
+# P Skills
+参考 ~/.p-skills/SKILL.md 中的开发流程。
 EOF
             ;;
     esac
@@ -240,7 +240,7 @@ EOF
 
 # 克隆/更新仓库
 install_skill_repo() {
-    log_info "安装 Security Dev Skills..."
+    log_info "安装 P Skills..."
 
     if [ -d "$SKILL_INSTALL_DIR" ]; then
         log_info "仓库已存在，更新中..."
@@ -291,7 +291,7 @@ setup_agents() {
 
 # 卸载
 uninstall() {
-    log_info "卸载 Security Dev Skills..."
+    log_info "卸载 P Skills..."
 
     # 删除软链接
     for agent in claude-code codex cursor opencode windsurf aider cline continue pi generic; do
@@ -319,7 +319,7 @@ uninstall() {
 # 显示帮助
 show_help() {
     cat << EOF
-Security Dev Skills — 安装脚本
+P Skills — 安装脚本
 
 用法:
     ./install.sh                    安装 + 配置 agent
@@ -331,7 +331,7 @@ Security Dev Skills — 安装脚本
 
 说明:
     本脚本只负责克隆仓库和创建软链接。
-    依赖检查由 agent 自行完成，参考 ~/.security-dev-skills/DEPENDENCIES.md
+    依赖检查由 agent 自行完成，参考 ~/.p-skills/DEPENDENCIES.md
 
 集成 Skills:
     安装后自动包含以下工具的 skills（MCP 需用户自行安装）：
@@ -377,7 +377,7 @@ main() {
     done
 
     echo "=========================================="
-    echo "  Security Dev Skills — 安装"
+    echo "  P Skills — 安装"
     echo "=========================================="
     echo ""
 

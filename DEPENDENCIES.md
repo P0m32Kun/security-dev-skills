@@ -41,9 +41,9 @@ Agent 启动时，读取 `.deps-status` 文件：
 
 ```bash
 # 检查缓存是否存在
-if [ -f ~/.security-dev-skills/.deps-status ]; then
+if [ -f ~/.p-skills/.deps-status ]; then
     # 读取缺失的必需依赖
-    missing=$(grep "^missing_required=" ~/.security-dev-skills/.deps-status | cut -d= -f2)
+    missing=$(grep "^missing_required=" ~/.p-skills/.deps-status | cut -d= -f2)
     
     if [ -n "$missing" ]; then
         echo "⚠️ 缺少以下依赖："
