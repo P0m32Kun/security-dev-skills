@@ -44,7 +44,7 @@ get_agent_skill_dir() {
         cline)       echo "$HOME/.cline/skills/p-skills" ;;
         continue)    echo "$HOME/.continue/skills/p-skills" ;;
         pi)          echo "$HOME/.pi/agent/skills/p-skills" ;;
-        reasonix)    echo "$HOME/.reasonix/skills/p-skills" ;;
+        reasonix)    echo "$HOME/.reasonix/skills" ;;
         generic)     echo "$HOME/.coding-agent/skills/p-skills" ;;
         *)           echo "" ;;
     esac
@@ -82,7 +82,7 @@ list_agents() {
     echo "  cline          ~/.cline/skills/p-skills"
     echo "  continue       ~/.continue/skills/p-skills"
     echo "  pi             ~/.pi/agent/skills/p-skills"
-    echo "  reasonix       ~/.reasonix/skills/p-skills"
+    echo "  reasonix       ~/.reasonix/skills"
     echo "  generic        ~/.coding-agent/skills/p-skills"
     echo ""
     echo "使用方式："
