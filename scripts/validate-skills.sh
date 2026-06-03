@@ -6,7 +6,8 @@
 # 用法：./scripts/validate-skills.sh
 #
 
-set -e
+set -u
+shopt -s lastpipe 2>/dev/null || true
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -16,11 +17,11 @@ NC='\033[0m'
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 
-# 排除的目录（不需要 frontmatter 校验）
-EXCLUDE_DIRS="docs/templates docs/archive integrations"
+# 排除的目录（不需要 frontmatter 校验：模板、归档、分发 manifest、集成）
+EXCLUDE_DIRS="docs/templates docs/archive integrations .claude-plugin .codex-plugin .cursor-plugin .opencode tests"
 
-# 排除的文件（不需要 frontmatter）
-EXCLUDE_FILES="README.md CHANGELOG.md CONTEXT.md DESIGN.md DEPENDENCIES.md INSTALL.md best-practices.md dependencies.md analysis.md"
+# 排除的文件（不需要 frontmatter：仓库级 / 分发入口 / 适配层文档，不含 SKILL.md）
+EXCLUDE_FILES="README.md AGENTS.md CHANGELOG.md CONTEXT.md DESIGN.md DEPENDENCIES.md INSTALL.md tools-reference.md best-practices.md dependencies.md analysis.md"
 
 # 必填字段（最小化规范，借鉴 obra/superpowers）
 REQUIRED_FIELDS="name description"
@@ -100,10 +101,10 @@ echo "  Skill 文件校验"
 echo "=========================================="
 echo ""
 
-# 查找所有 .md 文件
-find "$REPO_ROOT" -name "*.md" -not -path "*/.git/*" -not -path "*/node_modules/*" | sort | while read -r file; do
-    validate_file "$file"
-done
+# 查找所有 .md 文件（使用 process substitution 避免 find|while 子 shell 变量丢失）
+while read -r file; do
+    validate_file "$file" || true
+done < <(find "$REPO_ROOT" -name "*.md" -not -path "*/.git/*" -not -path "*/node_modules/*" | sort)
 
 echo ""
 echo "=========================================="

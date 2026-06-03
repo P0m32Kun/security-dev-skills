@@ -4,5 +4,17 @@
   "MD033": false,
   "MD041": false,
   "MD024": false,
-  "MD034": false
+  "MD034": false,
+  "MD032": false,
+  "MD040": false,
+  "MD060": false,
+  "ignores": [
+    "docs/archive/**",
+    ".claude-plugin/**",
+    ".codex-plugin/**",
+    ".cursor-plugin/**",
+    ".opencode/**",
+    "tests/**",
+    "node_modules/**"
+  ]
 }
