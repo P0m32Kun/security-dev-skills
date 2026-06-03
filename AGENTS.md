@@ -149,7 +149,7 @@ p-skills 在以下 agent 上测试过（社区贡献）：
 | Qoder CLI | — | `install.sh` |
 | Aider | — | `install.sh` |
 | pi | — | `install.sh` |
-| Reasonix | — | `install.sh`（自动发现 `~/.reasonix/skills/`） |
+| Reasonix | — | `install.sh` |
 | Windsurf | — | `install.sh` |
 | Cline | — | `install.sh` |
 | Continue | — | `install.sh` |

@@ -200,13 +200,7 @@ configure_agent_rules() {
     case $agent in
         reasonix)
             # Reasonix 自动发现 ~/.reasonix/skills/<name>/SKILL.md，无需配置文件
-            # 项目级集成：在 <project>/.reasonix/skills/ 下为每个 skill 建扁平链接
             log_success "$agent 已配置（自动发现，无需配置文件）"
-            log_info "项目级集成（每个 skill 单独链接）："
-            log_info "  mkdir -p <project>/.reasonix/skills"
-            log_info "  for s in $SKILL_INSTALL_DIR/skills/*/; do"
-            log_info "    ln -s \"\$s\" <project>/.reasonix/skills/\$(basename \"\$s\")"
-            log_info "  done"
             return 0
             ;;
         claude-code)

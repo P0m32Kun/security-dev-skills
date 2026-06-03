@@ -8,7 +8,7 @@
 ## [Unreleased]
 
 ### Added
-- `install.sh` — 新增 Reasonix 支持（自动发现 `~/.reasonix/skills/p-skills`，含项目级集成提示）
+- `install.sh` — 新增 Reasonix 支持（自动发现 `~/.reasonix/skills/p-skills/` 下的扁平 skill 链接）
 - `AGENTS.md` — 任何 coding agent 的通用入口（借鉴 CLAUDE.md / AGENTS.md 约定，但 agent-agnostic）
 - `docs/tools-reference.md` — 跨 agent 工具等价表（适配层），skill 内容只用通用术语
 - `skills/writing-skills/` — 元技能：创建/编辑/改进 skill（借鉴 obra/superpowers 的 TDD-for-docs 方法论）
