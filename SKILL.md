@@ -187,6 +187,16 @@ description: Use when fixing bugs, debugging issues, or troubleshooting errors. 
 | subagent-driven-development | `skills/subagent-driven-development/` | 按 plan 顺序派 subagent 实现 |
 | dispatching-parallel-agents | `skills/dispatching-parallel-agents/` | 并行派多个 subagent 做独立任务 |
 
+### Claude Code 专项优化
+
+| Skill | 路径 | 触发条件 |
+|-------|------|---------|
+| claude-code | `skills/claude-code/` | Claude Code 优化、hooks 配置、安装 hooks |
+
+包含：10 个 hooks（gateguard 事实强制、配置保护、质量门禁、上下文监控、学习系统）、3 个 rules（编码风格、Git 工作流、Agent 行为）、4 个 skills（de-sloppify、context-audit、model-routing、continuous-learning）。
+
+详见 `skills/claude-code/SKILL.md`
+
 ### 集成 Skills（外部 MCP 工具，详见 `integrations/README.md`）
 
 | Skill | 路径 | 用途 |

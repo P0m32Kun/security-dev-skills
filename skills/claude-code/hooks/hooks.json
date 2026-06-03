@@ -1,0 +1,91 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/gateguard.js"
+          },
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/config-protection.js"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/gateguard.js"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/quality-gate.js"
+          },
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/learning-observer.js"
+          },
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/meta-skill-update.js"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/learning-observer.js"
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/context-monitor.js"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/session-recovery.js"
+          },
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/session-learning.js"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ~/.p-skills/skills/claude-code/hooks/scripts/session-summary.js"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -23,6 +23,12 @@
 - `scripts/sync-plugin-manifests.sh` — 同步所有 manifest 版本号的脚本
 - `.claude-plugin/README.md` — 多 harness plugin manifest 说明文档
 - 所有 skill 增加 `## Red Flags — STOP` 和 `## Common Rationalizations` 章节（借鉴 superpowers 的反合理化模式）
+- `skills/claude-code/` — Claude Code 专项优化模块
+  - 10 个 hooks: gateguard（事实强制）、config-protection（配置保护）、quality-gate（质量门禁）、context-monitor（上下文监控）、learning-observer/evolve（使用模式学习）、meta-skill-update（改进记忆）、session-recovery/summary/learning（会话持久化）
+  - 3 个 rules: coding-style、git-workflow、agent-behavior
+  - 4 个 skills: de-sloppify（代码清理）、context-audit（上下文审计）、model-routing（模型选择）、continuous-learning（持续学习 + 改进记忆）
+  - install.sh 支持 --uninstall，智能合并 hooks.json
+  - 设计来源: [affaan-m/ecc](https://github.com/affaan-m/ecc), [microsoft/SkillOpt](https://github.com/microsoft/SkillOpt)
 
 ### Changed
 - **Agent-Agnostic 重构**：skill 内容只用通用术语（"读文件"、"执行命令"、"派 subagent"），具体工具名由 agent 运行时按 `docs/tools-reference.md` 映射
