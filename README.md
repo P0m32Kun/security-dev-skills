@@ -24,7 +24,7 @@
 | Cursor | `/add-plugin p-skills` 或 `install.sh` |
 | OpenCode | `.opencode/INSTALL.md` 或 `install.sh` |
 | Gemini CLI | `gemini extensions install <repo>` |
-| Qoder CLI / pi / Aider / Windsurf / Cline / Continue | `install.sh` |
+| Qoder CLI / pi / Aider / Reasonix / Windsurf / Cline / Continue | `install.sh` |
 | 任何支持 skill/rules 加载的 agent | 把 `skills/` 目录复制到 agent 的 skill 路径 |
 
 详见 `AGENTS.md`（任何 agent 的通用入口）和 `INSTALL.md`。

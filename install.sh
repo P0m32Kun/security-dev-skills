@@ -44,6 +44,7 @@ get_agent_skill_dir() {
         cline)       echo "$HOME/.cline/skills/p-skills" ;;
         continue)    echo "$HOME/.continue/skills/p-skills" ;;
         pi)          echo "$HOME/.pi/agent/skills/p-skills" ;;
+        reasonix)    echo "$HOME/.reasonix/skills/p-skills" ;;
         generic)     echo "$HOME/.coding-agent/skills/p-skills" ;;
         *)           echo "" ;;
     esac
@@ -81,6 +82,7 @@ list_agents() {
     echo "  cline          ~/.cline/skills/p-skills"
     echo "  continue       ~/.continue/skills/p-skills"
     echo "  pi             ~/.pi/agent/skills/p-skills"
+    echo "  reasonix       ~/.reasonix/skills/p-skills"
     echo "  generic        ~/.coding-agent/skills/p-skills"
     echo ""
     echo "使用方式："
@@ -101,6 +103,7 @@ detect_agents() {
     [ -d "$HOME/.cline" ] && detected="$detected cline"
     [ -d "$HOME/.continue" ] && detected="$detected continue"
     [ -d "$HOME/.pi" ] && detected="$detected pi"
+    [ -d "$HOME/.reasonix" ] && detected="$detected reasonix"
 
     echo "$detected"
 }
@@ -161,6 +164,13 @@ configure_agent_rules() {
 
     # 添加配置
     case $agent in
+        reasonix)
+            # Reasonix 自动发现 ~/.reasonix/skills/，无需配置文件
+            # 项目级集成：用户可在项目内手动 ln -s ~/.p-skills <project>/.reasonix/skills/p-skills
+            log_success "$agent 已配置（自动发现，无需配置文件）"
+            log_info "项目级集成：ln -s $SKILL_INSTALL_DIR <project>/.reasonix/skills/p-skills"
+            return 0
+            ;;
         claude-code)
             cat >> "$config_file" << 'EOF'
 
@@ -296,7 +306,7 @@ uninstall() {
     log_info "卸载 P Skills..."
 
     # 删除软链接
-    for agent in claude-code codex cursor opencode windsurf aider cline continue pi generic; do
+    for agent in claude-code codex cursor opencode windsurf aider cline continue pi reasonix generic; do
         local target_dir=$(get_agent_skill_dir "$agent")
         if [ -L "$target_dir" ]; then
             rm "$target_dir"
