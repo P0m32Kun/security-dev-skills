@@ -36,7 +36,7 @@
 - `SKILL.md` 重写：精简 frontmatter 规范说明、skill 索引统一指向 `skills/<name>/`、移除依赖/安装细节（已拆到 INSTALL.md / DEPENDENCIES.md）
 - `skills/bootstrap/SKILL.md` — 修正路径契约，列出多 agent 兼容的安装路径
 - `skills/develop-feature/SKILL.md` — Implement 阶段显式引入 subagent-driven-development 编排方式
-- `install.sh` — 写入 agent 配置时使用 `skills/<name>/SKILL.md` 新路径（不再指向 workflow/testing 等旧目录）
+- `install.sh` — 重写为**扁平化链接**：每个 skill 单独建链到 agent 的 skill 根目录（`<agent_root>/fix-bug → ~/.p-skills/skills/fix-bug`），兼容 agent 一层 `<name>/SKILL.md` 自动发现；同时清理旧版聚合链接（`<agent_root>/p-skills → ~/.p-skills`）；`uninstall` 动态发现并删除所有本仓库创建的链接
 - `scripts/validate-skills.sh` — 必填字段从 `name/description/version` 改为 `name/description`
 - `.gitignore` — 增加 `tests/triggering/results/`（自动生成，不入库）
 

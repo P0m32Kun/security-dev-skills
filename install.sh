@@ -108,40 +108,74 @@ detect_agents() {
     echo "$detected"
 }
 
-# 创建软链接
+# 创建软链接（扁平化：每个 skill 单独一条链接，便于 agent 自动发现）
+#
+# Agent 通常只在 skill 根目录下按 "<name>/SKILL.md" 一层扫描，
+# 不会递归到 <repo>/skills/<name>/SKILL.md。所以把每个 skill 目录
+# 单独链接到 agent 的 skill 根目录下：
+#   <agent_skill_dir>/fix-bug        → ~/.p-skills/skills/fix-bug
+#   <agent_skill_dir>/brainstorming  → ~/.p-skills/skills/brainstorming
+#   ...
 create_symlink() {
     local agent=$1
-    local target_dir=$(get_agent_skill_dir "$agent")
+    local skill_root=$(get_agent_skill_dir "$agent")
 
-    if [ -z "$target_dir" ]; then
+    if [ -z "$skill_root" ]; then
         log_error "未知的 agent: $agent"
         return 1
     fi
 
-    log_info "配置 $agent..."
+    log_info "配置 $agent（扁平化链接到 $skill_root）..."
 
-    mkdir -p "$(dirname "$target_dir")"
+    mkdir -p "$skill_root"
 
-    # 如果已存在软链接
-    if [ -L "$target_dir" ]; then
-        local current_target=$(readlink "$target_dir")
-        if [ "$current_target" = "$SKILL_INSTALL_DIR" ]; then
-            log_success "$agent 已配置"
-            return 0
-        else
-            rm "$target_dir"
+    # 向后兼容：清理旧版聚合软链 <skill_root>/p-skills → ~/.p-skills
+    local old_aggregate="$skill_root/p-skills"
+    if [ -L "$old_aggregate" ]; then
+        local old_target
+        old_target=$(readlink "$old_aggregate")
+        if [ "$old_target" = "$SKILL_INSTALL_DIR" ]; then
+            rm "$old_aggregate"
+            log_info "清理旧版聚合链接：$old_aggregate"
         fi
-    elif [ -d "$target_dir" ]; then
-        log_warn "$agent 目录已存在，备份..."
-        mv "$target_dir" "${target_dir}.bak.$(date +%Y%m%d%H%M%S)"
     fi
 
-    if ln -s "$SKILL_INSTALL_DIR" "$target_dir"; then
-        log_success "$agent: $target_dir -> $SKILL_INSTALL_DIR"
-    else
-        log_error "$agent 配置失败"
+    local skills_src="$SKILL_INSTALL_DIR/skills"
+    if [ ! -d "$skills_src" ]; then
+        log_error "找不到 skills 源目录：$skills_src"
         return 1
     fi
+
+    local linked=0
+    local skipped=0
+    for skill_dir in "$skills_src"/*/; do
+        [ -d "$skill_dir" ] || continue
+        [ -f "$skill_dir/SKILL.md" ] || continue
+
+        local name
+        name=$(basename "$skill_dir")
+        local target="$skill_root/$name"
+
+        if [ -L "$target" ]; then
+            local cur
+            cur=$(readlink "$target")
+            if [ "$cur" = "$skill_dir" ]; then
+                skipped=$((skipped + 1))
+                continue
+            fi
+            # 指向别处：覆盖
+            ln -sfn "$skill_dir" "$target"
+        elif [ -e "$target" ]; then
+            log_warn "$agent: $target 已存在且不是软链，跳过"
+            skipped=$((skipped + 1))
+            continue
+        else
+            ln -s "$skill_dir" "$target"
+        fi
+        linked=$((linked + 1))
+    done
+
+    log_success "$agent: 新建 $linked 条链接（$skipped 条已存在）"
 }
 
 # 配置 Agent 的规则文件
@@ -165,10 +199,14 @@ configure_agent_rules() {
     # 添加配置
     case $agent in
         reasonix)
-            # Reasonix 自动发现 ~/.reasonix/skills/，无需配置文件
-            # 项目级集成：用户可在项目内手动 ln -s ~/.p-skills <project>/.reasonix/skills/p-skills
+            # Reasonix 自动发现 ~/.reasonix/skills/<name>/SKILL.md，无需配置文件
+            # 项目级集成：在 <project>/.reasonix/skills/ 下为每个 skill 建扁平链接
             log_success "$agent 已配置（自动发现，无需配置文件）"
-            log_info "项目级集成：ln -s $SKILL_INSTALL_DIR <project>/.reasonix/skills/p-skills"
+            log_info "项目级集成（每个 skill 单独链接）："
+            log_info "  mkdir -p <project>/.reasonix/skills"
+            log_info "  for s in $SKILL_INSTALL_DIR/skills/*/; do"
+            log_info "    ln -s \"\$s\" <project>/.reasonix/skills/\$(basename \"\$s\")"
+            log_info "  done"
             return 0
             ;;
         claude-code)
@@ -305,12 +343,34 @@ setup_agents() {
 uninstall() {
     log_info "卸载 P Skills..."
 
-    # 删除软链接
+    # 遍历所有已知 agent，删除扁平化 skill 链接 + 旧版聚合链接
     for agent in claude-code codex cursor opencode windsurf aider cline continue pi reasonix generic; do
-        local target_dir=$(get_agent_skill_dir "$agent")
-        if [ -L "$target_dir" ]; then
-            rm "$target_dir"
-            log_success "删除 $agent 软链接"
+        local skill_root
+        skill_root=$(get_agent_skill_dir "$agent")
+        [ -n "$skill_root" ] || continue
+        [ -d "$skill_root" ] || continue
+
+        # 删除指向本仓库的扁平 skill 链接
+        for entry in "$skill_root"/*; do
+            [ -L "$entry" ] || continue
+            local target
+            target=$(readlink "$entry")
+            if [ "$target" = "$SKILL_INSTALL_DIR/skills/$(basename "$entry")" ] \
+                || [[ "$target" == "$SKILL_INSTALL_DIR/skills/"* ]]; then
+                rm "$entry"
+                log_success "删除 $agent: $entry"
+            fi
+        done
+
+        # 删除旧版聚合链接 <skill_root>/p-skills → ~/.p-skills
+        local old_aggregate="$skill_root/p-skills"
+        if [ -L "$old_aggregate" ]; then
+            local old_target
+            old_target=$(readlink "$old_aggregate")
+            if [ "$old_target" = "$SKILL_INSTALL_DIR" ]; then
+                rm "$old_aggregate"
+                log_success "删除 $agent 旧版聚合链接：$old_aggregate"
+            fi
         fi
     done
 

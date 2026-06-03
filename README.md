@@ -69,11 +69,12 @@ cd ~/.p-skills
 ### 安装脚本做了什么
 
 ```bash
-# 为每个 skill 创建 symlink 到 ~/.pi/agent/skills/
-~/.pi/agent/skills/bootstrap    -> ~/.p-skills/skills/bootstrap
-~/.pi/agent/skills/brainstorming -> ~/.p-skills/skills/brainstorming
-~/.pi/agent/skills/fix-bug      -> ~/.p-skills/skills/fix-bug
-... (共 16 个 skill)
+# 为每个 skill 创建扁平 symlink 到 agent 的 skill 根目录
+# （agent 通常只按 <name>/SKILL.md 一层发现，不会递归 <repo>/skills/）
+~/.pi/agent/skills/p-skills/bootstrap    -> ~/.p-skills/skills/bootstrap
+~/.pi/agent/skills/p-skills/brainstorming -> ~/.p-skills/skills/brainstorming
+~/.pi/agent/skills/p-skills/fix-bug      -> ~/.p-skills/skills/fix-bug
+... (共 19 个 skill)
 ```
 
 ### 预览安装（不实际创建）
