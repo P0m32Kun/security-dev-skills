@@ -17,13 +17,13 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 
 # 排除的目录（不需要 frontmatter 校验）
-EXCLUDE_DIRS="docs/templates integrations"
+EXCLUDE_DIRS="docs/templates docs/archive integrations"
 
 # 排除的文件（不需要 frontmatter）
 EXCLUDE_FILES="README.md CHANGELOG.md CONTEXT.md DESIGN.md DEPENDENCIES.md INSTALL.md best-practices.md dependencies.md analysis.md"
 
-# 必填字段
-REQUIRED_FIELDS="name description version"
+# 必填字段（最小化规范，借鉴 obra/superpowers）
+REQUIRED_FIELDS="name description"
 
 errors=0
 checked=0

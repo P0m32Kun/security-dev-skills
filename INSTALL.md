@@ -5,7 +5,21 @@
 
 ## 给 Agent 的指令
 
-如果你是一个 coding agent，请按照以下步骤自动安装 P Skills：
+### 推荐：Plugin Marketplace 安装
+
+如果你的 harness 支持 plugin marketplace，优先使用 marketplace 安装（自动 bootstrap + 自动更新）：
+
+| Harness | 命令 |
+|---------|------|
+| Claude Code | `/plugin install p-skills` |
+| Codex CLI | `/plugins` → search `p-skills` → Install |
+| Cursor | `/add-plugin p-skills` |
+| Gemini CLI | `gemini extensions install https://github.com/P0m32Kun/p-skills` |
+| OpenCode | 让 agent 读取 `https://raw.githubusercontent.com/P0m32Kun/p-skills/main/.opencode/INSTALL.md` |
+
+### 备选：手动安装
+
+如果 marketplace 不可用，按以下步骤手动安装：
 
 ### 步骤 1：克隆仓库
 

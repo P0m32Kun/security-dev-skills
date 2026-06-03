@@ -291,6 +291,29 @@ gh release create v1.0.0 --generate-notes
 - [ ] Git tag 已创建
 - [ ] GitHub Release 已创建
 
+## Red Flags — STOP
+
+当你有以下任何想法时，**停下来重新检查**：
+
+- "先推上去看看"
+- "本地测过了就行"
+- "这次改很小，不用走完整流程"
+- "忘了更新 CHANGELOG"
+- "tag 晚点再打"
+- "手动推镜像就行"
+
+**所有这些都意味着你正在合理化跳过流程。回到 deploy 的第一步。**
+
+## Common Rationalizations
+
+| 借口 | 现实 |
+|------|------|
+| "小改动不用正式 release" | 小改动也可能破坏生产 |
+| "CI 会帮我检查" | CI 不检查版本号、CHANGELOG、tag |
+| "回滚很容易" | 没回滚计划的发布就是赌博 |
+| "只是内部工具" | 内部工具也有用户 |
+| "文档晚点补" | 晚点 = 永远不 |
+
 ## 参考
 
 - `workflow/develop.feature.md` — 完整开发流程

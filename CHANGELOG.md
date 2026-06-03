@@ -7,6 +7,48 @@
 
 ## [Unreleased]
 
+### Added
+- `AGENTS.md` — 任何 coding agent 的通用入口（借鉴 CLAUDE.md / AGENTS.md 约定，但 agent-agnostic）
+- `docs/tools-reference.md` — 跨 agent 工具等价表（适配层），skill 内容只用通用术语
+- `skills/writing-skills/` — 元技能：创建/编辑/改进 skill（借鉴 obra/superpowers 的 TDD-for-docs 方法论）
+- `skills/subagent-driven-development/` — 按 plan 顺序派 fresh subagent 实现 + 双阶段 review（spec → quality）
+- `skills/dispatching-parallel-agents/` — 并行派多个独立 subagent 做独立任务 + 聚合 + 冲突解决
+- `tests/triggering/` — Skill 触发测试框架（`run-test.sh` / `run-all.sh` / 13 个 naive prompts），借鉴 superpowers 的 skill-triggering 测试
+- `.claude-plugin/plugin.json` — Claude Code plugin manifest
+- `.codex-plugin/plugin.json` — Codex CLI/App plugin manifest
+- `.cursor-plugin/plugin.json` — Cursor plugin manifest
+- `.opencode/INSTALL.md` — OpenCode 安装入口
+- `gemini-extension.json` — Gemini CLI extension manifest
+- `scripts/sync-plugin-manifests.sh` — 同步所有 manifest 版本号的脚本
+- `.claude-plugin/README.md` — 多 harness plugin manifest 说明文档
+- 所有 skill 增加 `## Red Flags — STOP` 和 `## Common Rationalizations` 章节（借鉴 superpowers 的反合理化模式）
+
+### Changed
+- **Agent-Agnostic 重构**：skill 内容只用通用术语（"读文件"、"执行命令"、"派 subagent"），具体工具名由 agent 运行时按 `docs/tools-reference.md` 映射
+  - `skills/subagent-driven-development/SKILL.md` — 移除具体 agent 列举
+  - `skills/writing-skills/SKILL.md` — 移除 Anthropic 特定链接
+  - `skills/bootstrap/SKILL.md` — 路径表标注为"示例"，显式声明"p-skills 不绑定任何 agent"
+  - `SKILL.md` — 新增"Agent-Agnostic"核心理念；可移植性约束加入工具映射说明
+  - `README.md` — 开篇明确"agent-agnostic"定位；新增"支持的 Agent"表覆盖所有主流 coding agent
+- **Frontmatter 规范精简**：只允许 `name` + `description` 两个字段（借鉴 superpowers 实测结论），去掉 version/tags/triggers/inputs/outputs/auto-update
+- **Description 写法规范**：必须以 "Use when…" 开头，只描述触发条件，**不总结流程**（实测表明 agent 会走捷径跳过正文）
+- `SKILL.md` 重写：精简 frontmatter 规范说明、skill 索引统一指向 `skills/<name>/`、移除依赖/安装细节（已拆到 INSTALL.md / DEPENDENCIES.md）
+- `skills/bootstrap/SKILL.md` — 修正路径契约，列出多 agent 兼容的安装路径
+- `skills/develop-feature/SKILL.md` — Implement 阶段显式引入 subagent-driven-development 编排方式
+- `install.sh` — 写入 agent 配置时使用 `skills/<name>/SKILL.md` 新路径（不再指向 workflow/testing 等旧目录）
+- `scripts/validate-skills.sh` — 必填字段从 `name/description/version` 改为 `name/description`
+- `.gitignore` — 增加 `tests/triggering/results/`（自动生成，不入库）
+
+### Removed
+- 删除 `workflow/`、`testing/`、`security/`、`release/` 顶层目录（内容已归档到 `docs/archive/`，`skills/` 是规范源）
+- 删除 `docs/sync.md`、`docs/validate.md`（已归档到 `docs/archive/`）
+- 删除 `RESTRUCTURE.md`（已归档到 `docs/archive/`）
+
+### Fixed
+- 消除 agent 读到过期/漂移内容的风险（旧源文件与 `skills/` 已 diff 全部漂移）
+- 修正 `install.sh` 和 `bootstrap` 中写死的 `~/.pi/agent/skills/` 路径（改为多 agent 兼容）
+- 修正 SKILL.md 索引中的旧路径引用
+
 ## [0.9.1] - 2026-06-02
 
 ### Added

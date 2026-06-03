@@ -1,0 +1,23 @@
+{
+  "name": "p-skills",
+  "description": "Structured development methodology: TDD, brainstorming, bug fixing, deployment, security. Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective.",
+  "version": "0.9.1",
+  "author": "P0m32Kun",
+  "repository": "https://github.com/P0m32Kun/p-skills",
+  "license": "MIT",
+  "tags": [
+    "skills",
+    "tdd",
+    "workflow",
+    "methodology"
+  ],
+  "rules": [
+    {
+      "description": "P-Skills - Structured development workflow",
+      "globs": "**/*",
+      "content_path": "skills/bootstrap/SKILL.md"
+    }
+  ],
+  "skills_dir": "skills",
+  "bootstrap": "skills/bootstrap/SKILL.md"
+}

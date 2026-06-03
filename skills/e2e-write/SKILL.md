@@ -143,6 +143,28 @@ npx playwright show-report
 - [ ] 测试代码清晰易懂
 - [ ] 没有 flaky test
 
+## Red Flags — STOP
+
+当你有以下任何想法时，**停下来重新检查**：
+
+- "单元测试够了"
+- "E2E 太慢"
+- "先手动测一下"
+- "mock 一下就行"
+- "flaky 没关系"
+
+**所有这些都意味着你正在合理化跳过流程。回到 e2e-write 的第一步。**
+
+## Common Rationalizations
+
+| 借口 | 现实 |
+|------|------|
+| "单元测试覆盖够了" | 单元测试不验证用户流程 |
+| "E2E 太慢太脆" | 慢和脆是设计问题，不是 E2E 的问题 |
+| "mock 外部服务就行" | mock 不验证真实集成 |
+| "先手动测一下" | 手动测不能回归 |
+| "flaky 之后再修" | Flaky test 比没 test 更糟（没人信） |
+
 ## 参考
 
 - `testing/strategy.md` — 测试策略选择

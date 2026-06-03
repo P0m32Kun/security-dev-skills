@@ -1,0 +1,16 @@
+{
+  "name": "p-skills",
+  "description": "Structured development methodology for coding agents: TDD, brainstorming, bug fixing, deployment, security, and subagent orchestration.",
+  "version": "0.9.1",
+  "author": "P0m32Kun",
+  "repository": "https://github.com/P0m32Kun/p-skills",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "tdd",
+    "workflow",
+    "development-methodology"
+  ],
+  "skills_dir": "skills",
+  "bootstrap": "skills/bootstrap/SKILL.md"
+}

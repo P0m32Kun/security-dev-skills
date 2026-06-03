@@ -1,9 +1,9 @@
 ---
 name: develop-feature
 description: >
-  Use when developing a complete feature from research to release. Orchestrates
-  the full workflow: brainstorming → writing-plans → tdd → doc-sync → verify →
-  deploy → retrospective. Use when user says "新需求开发", "功能开发", "完整开发流程".
+  Use when developing a complete feature end-to-end, from initial idea through
+  research, design, implementation, documentation, verification, and release.
+  Use when user says "新需求开发", "功能开发", "完整开发流程", "开发一个功能".
 ---
 
 # 完整需求开发流程
@@ -69,13 +69,18 @@ brainstorming  │       tdd       doc-sync    verify    deploy    retrospective
 
 ### 阶段 3：Implement（编码）
 
-**使用的 Skill**：`tdd`
+**使用的 Skill**：`tdd` + `subagent-driven-development`（推荐）
 
 **目标**：按实施计划编码，测试通过
 
 **输入**：实施计划
 
 **输出**：通过测试的代码
+
+**编排方式**（按任务特征选择）：
+- 任务大多独立 → 用 `subagent-driven-development`（顺序）
+- 任务全部独立 → 用 `dispatching-parallel-agents`（并行）
+- 任务紧耦合 → 自己实现，严格遵循 `tdd`
 
 <HARD-GATE>
 **阻断条件**：编译/测试不通过不进入 Doc-Sync
@@ -84,6 +89,7 @@ brainstorming  │       tdd       doc-sync    verify    deploy    retrospective
 - [ ] 所有任务已完成
 - [ ] 编译通过
 - [ ] 测试通过
+- [ ] 每个任务都通过 spec + quality review
 </HARD-GATE>
 
 ### 阶段 4：Doc-Sync（文档同步）
@@ -173,6 +179,29 @@ brainstorming  │       tdd       doc-sync    verify    deploy    retrospective
 - Doc-Sync + Verify → 一个步骤
 
 但不能跳过任何阶段的核心检查项。
+
+## Red Flags — STOP
+
+当你有以下任何想法时，**停下来重新检查**：
+
+- "这个需求够简单，跳过 Research"
+- "直接开始写代码"
+- "spec 心里有数就行"
+- "Doc-Sync 之后再说"
+- "Verify 用肉眼看看"
+- "先 Implement 再 Design 也行"
+
+**所有这些都意味着你正在合理化跳过流程。回到 develop-feature 的第一步。**
+
+## Common Rationalizations
+
+| 借口 | 现实 |
+|------|------|
+| "Research 和 Design 可以跳过" | 可以合并，但不能跳过 |
+| "先写代码再补 spec" | 违反铁律：无 spec 不进入 Implement |
+| "小改动不用走完整流程" | 流程就是为了防止"小改动"翻车 |
+| "测试通过就算 verify" | 测试通过 ≠ 用户验收 |
+| "Doc-Sync 不重要" | 文档过期比没文档更糟 |
 
 ## 参考
 

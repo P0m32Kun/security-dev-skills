@@ -1,6 +1,6 @@
 # P-Skills — 结构化开发技能体系
 
-> 覆盖完整开发生命周期的 skill 仓库，适用于 pi coding agent。
+> 覆盖完整开发生命周期的 skill 仓库，**agent-agnostic**，可在 Claude Code / Codex / Cursor / OpenCode / pi / Qoder CLI / Aider / Gemini 等任何支持 skill 加载的 coding agent 上使用。
 
 ## 这是什么
 
@@ -8,10 +8,26 @@
 
 ### 核心特性
 
+- **Agent-Agnostic** — 不绑定任何 agent，skill 内容只用通用术语；工具映射在 `docs/tools-reference.md`
 - **扁平结构** — 每个 skill 独立可发现
 - **自动触发** — description 作为触发条件
 - **HARD-GATE** — 阻断机制确保流程执行
 - **Bootstrap** — 会话入口强制检查 skill
+- **Plugin 分发** — 通过各 agent 的 plugin marketplace 安装
+
+## 支持的 Agent
+
+| Agent | 安装方式 |
+|-------|---------|
+| Claude Code | `/plugin install p-skills` 或 `install.sh` |
+| Codex CLI / App | `/plugins` 搜索 `p-skills` 或 `install.sh` |
+| Cursor | `/add-plugin p-skills` 或 `install.sh` |
+| OpenCode | `.opencode/INSTALL.md` 或 `install.sh` |
+| Gemini CLI | `gemini extensions install <repo>` |
+| Qoder CLI / pi / Aider / Windsurf / Cline / Continue | `install.sh` |
+| 任何支持 skill/rules 加载的 agent | 把 `skills/` 目录复制到 agent 的 skill 路径 |
+
+详见 `AGENTS.md`（任何 agent 的通用入口）和 `INSTALL.md`。
 
 ## Skill 列表
 
@@ -33,6 +49,9 @@
 | **security-research** | 安全调研 | 安全工具/方案调研 |
 | **security-poc** | PoC 编写 | PoC 编写与验证 |
 | **security-integrate** | 安全工具集成 | 安全工具集成到 CI/CD |
+| **writing-skills** | 创建 skill | 创建/编辑/改进 skill（元技能） |
+| **subagent-driven-development** | Subagent 驱动开发 | 按 plan 顺序派 fresh subagent 实现 + 双阶段 review |
+| **dispatching-parallel-agents** | 并行 subagent 调度 | 并行派多个独立 subagent 做独立任务 |
 
 ## 安装
 

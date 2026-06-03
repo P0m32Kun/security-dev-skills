@@ -26,7 +26,18 @@ description: >
 
 ## 如何找到 Skill
 
-所有 skill 都在 `~/.pi/agent/skills/` 下，每个 skill 是一个目录，包含 `SKILL.md` 入口文件。
+Skill 的安装路径取决于你使用的 agent 和安装方式。**p-skills 不绑定任何 agent**，下表只是常见示例（完整列表见 `INSTALL.md`）：
+
+| Agent | Skill 路径（示例） |
+|-------|-----------|
+| pi | `~/.pi/agent/skills/` |
+| Claude Code | `~/.claude/skills/p-skills/skills/` |
+| Cursor | `~/.cursor/skills/p-skills/skills/` |
+| Codex | `~/.codex/skills/p-skills/skills/` |
+| 通用 / 手动 | `~/.p-skills/skills/` |
+| **任何 agent** | 把 `skills/` 目录放到该 agent 的 skill/rules 搜索路径即可 |
+
+每个 skill 是一个目录，包含 `SKILL.md` 入口文件。具体工具名（读文件、执行命令、派 subagent 等）由 agent 自己按 `docs/tools-reference.md` 映射。
 
 ### 快速索引
 
@@ -47,6 +58,9 @@ description: >
 | security-research | 安全调研、安全工具 |
 | security-poc | PoC 编写、漏洞验证 |
 | security-integrate | 安全工具集成 |
+| writing-skills | 创建 skill、编辑 skill、改进 skill |
+| subagent-driven-development | 按 plan 实现、subagent 开发 |
+| dispatching-parallel-agents | 并行开发、parallel agents |
 
 ## 使用规则
 
@@ -180,6 +194,30 @@ Skill 本身会告诉你它是哪种。
 - [ ] CHANGELOG 已更新？
 - [ ] 版本号已更新？
 ```
+
+## Red Flags — STOP
+
+当你有以下任何想法时，**停下来重新检查**：
+
+- "这只是个简单问题"
+- "用户没要求用 skill"
+- "我上次已经读过这个 skill"
+- "先做一件小事再说"
+- "这个任务明显不需要 skill"
+- "我记得 skill 说什么"
+- "上下文已经够了"
+
+**所有这些都意味着你正在合理化跳过流程。回到 bootstrap 的第一步。**
+
+## Common Rationalizations
+
+| 借口 | 现实 |
+|------|------|
+| "用户想要快速回答" | 问题也是任务，检查 skill |
+| "Skill 太重了" | 简单的事会变复杂，用它 |
+| "我记得 skill" | Skill 会演进，读当前版本 |
+| "这只是澄清" | 澄清也是任务 |
+| "之前检查过了" | 每条消息都重新检查 |
 
 ## 参考
 

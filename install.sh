@@ -188,11 +188,12 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 
 ## 核心 Skill
 
-- 编排器：~/.p-skills/workflow/develop.feature.md
-- 回顾：~/.p-skills/workflow/retrospective.md
-- 文档同步：~/.p-skills/docs/sync.md
-- 测试策略：~/.p-skills/testing/strategy.md
-- 功能验证：~/.p-skills/testing/verify.md
+- 完整需求开发：~/.p-skills/skills/develop-feature/SKILL.md
+- Bug 修复：~/.p-skills/skills/fix-bug/SKILL.md
+- 回顾：~/.p-skills/skills/retrospective/SKILL.md
+- 文档同步：~/.p-skills/skills/doc-sync/SKILL.md
+- 测试策略：~/.p-skills/skills/test-strategy/SKILL.md
+- 功能验证：~/.p-skills/skills/verify/SKILL.md
 EOF
             ;;
         aider)
@@ -219,11 +220,12 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 
 ## 核心 Skill
 
-- 编排器：~/.p-skills/workflow/develop.feature.md
-- 回顾：~/.p-skills/workflow/retrospective.md
-- 文档同步：~/.p-skills/docs/sync.md
-- 测试策略：~/.p-skills/testing/strategy.md
-- 功能验证：~/.p-skills/testing/verify.md
+- 完整需求开发：~/.p-skills/skills/develop-feature/SKILL.md
+- Bug 修复：~/.p-skills/skills/fix-bug/SKILL.md
+- 回顾：~/.p-skills/skills/retrospective/SKILL.md
+- 文档同步：~/.p-skills/skills/doc-sync/SKILL.md
+- 测试策略：~/.p-skills/skills/test-strategy/SKILL.md
+- 功能验证：~/.p-skills/skills/verify/SKILL.md
 EOF
             ;;
         *)
