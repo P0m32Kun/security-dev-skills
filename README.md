@@ -39,6 +39,7 @@
 | **develop-feature** | 新需求开发 | 完整开发流程编排 |
 | **fix-bug** | 修复 bug、故障排查 | 标准化 Bug 修复 |
 | **tdd** | TDD、测试驱动 | 测试驱动开发 |
+| **bdd** | BDD、行为驱动、Gherkin | 行为驱动开发 |
 | **test-strategy** | 测试策略 | 测试策略选择 |
 | **verify** | 用户验证、验收测试 | 用户视角验证 |
 | **e2e-write** | 编写 E2E 测试 | E2E 测试编写 |
@@ -74,7 +75,7 @@ cd ~/.p-skills
 ~/.pi/agent/skills/p-skills/bootstrap    -> ~/.p-skills/skills/bootstrap
 ~/.pi/agent/skills/p-skills/brainstorming -> ~/.p-skills/skills/brainstorming
 ~/.pi/agent/skills/p-skills/fix-bug      -> ~/.p-skills/skills/fix-bug
-... (共 19 个 skill)
+... (共 20 个 skill)
 ```
 
 ### 预览安装（不实际创建）

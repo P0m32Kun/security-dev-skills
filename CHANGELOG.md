@@ -8,6 +8,7 @@
 ## [Unreleased]
 
 ### Added
+- `skills/bdd/` — 行为驱动开发 skill：Discovery Workshop → Formulation（Gherkin）→ Automation 三阶段流程，与 TDD 互补
 - `install.sh` — 新增 Reasonix 支持（自动发现 `~/.reasonix/skills/p-skills/` 下的扁平 skill 链接）
 - `AGENTS.md` — 任何 coding agent 的通用入口（借鉴 CLAUDE.md / AGENTS.md 约定，但 agent-agnostic）
 - `docs/tools-reference.md` — 跨 agent 工具等价表（适配层），skill 内容只用通用术语

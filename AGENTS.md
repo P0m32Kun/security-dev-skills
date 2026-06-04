@@ -44,6 +44,7 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 | 新需求开发、功能开发 | `develop-feature` |
 | 修复 bug、故障排查 | `fix-bug` |
 | TDD、测试驱动 | `tdd` |
+| BDD、行为驱动、Gherkin | `bdd` |
 | 测试策略 | `test-strategy` |
 | E2E 测试 | `e2e-write` |
 | 用户验证、验收 | `verify` |
@@ -76,7 +77,7 @@ p-skills/
 │   ├── develop-feature/SKILL.md
 │   ├── fix-bug/SKILL.md
 │   ├── tdd/SKILL.md
-│   ├── ... (19 个 skill 总计)
+│   ├── ... (20 个 skill 总计)
 │   └── writing-skills/SKILL.md
 ├── docs/
 │   ├── tools-reference.md        ← 跨 agent 工具等价表

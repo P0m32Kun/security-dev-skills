@@ -151,6 +151,7 @@ description: Use when fixing bugs, debugging issues, or troubleshooting errors. 
 | Skill | 路径 | 触发条件 |
 |-------|------|---------|
 | tdd | `skills/tdd/` | TDD、测试驱动、红绿重构 |
+| bdd | `skills/bdd/` | BDD、行为驱动、Gherkin、Three Amigos、Example Mapping |
 | test-strategy | `skills/test-strategy/` | 测试策略、选择测试层级 |
 | e2e-write | `skills/e2e-write/` | 编写 E2E 测试、Playwright |
 | verify | `skills/verify/` | 用户视角验证、验收测试 |
