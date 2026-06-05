@@ -3,7 +3,8 @@ name: tdd
 description: >
   Use when implementing features or bugfixes using test-driven development.
   Use when user says "TDD", "测试驱动", "红绿重构", "test-driven",
-  "test first", "先写测试".
+  "test first", "先写测试", "用 TDD 实现", "先写测试再写代码",
+  "测试先行", "test driven", "write test first".
 ---
 
 # 测试驱动开发
@@ -254,3 +255,5 @@ const service = new UserService(mockDb as any);
 - [Growing Object-Oriented Software](https://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627) — TDD 实践
 - [mattpocock/skills](https://github.com/mattpocock/skills) — TDD skill 设计
 - [obra/superpowers](https://github.com/obra/superpowers) — test-driven-development skill
+- `skills/bdd/` — 行为驱动开发（BDD），适合需求不明确时使用
+- `skills/verify/` — 用户视角验证，TDD 通过后进行验收测试

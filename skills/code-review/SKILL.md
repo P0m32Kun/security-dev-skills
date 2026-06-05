@@ -76,3 +76,11 @@ description: >
 - [ ] 评审报告已输出
 - [ ] 严重问题已标注
 - [ ] 没有修改任何代码
+
+## References
+
+- [Google Engineering Practices](https://google.github.io/eng-practices/review/) — Google 工程实践
+- [The Art of Code Review](https://mtlynch.io/code-review-love/) — 代码评审的艺术
+- [obra/superpowers](https://github.com/obra/superpowers) — code-review skill 设计
+- `skills/fix-bug/` — 修复发现的 bug
+- `skills/develop-feature/` — 完整开发流程

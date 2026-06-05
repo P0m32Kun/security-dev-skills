@@ -3,7 +3,8 @@ name: security-research
 description: >
   Use when researching security tools, security solutions, or doing security
   assessment. Use when user says "安全调研", "安全工具", "security research",
-  "security tools", "vulnerability assessment".
+  "security tools", "vulnerability assessment", "调研一下", "调研最新",
+  "看看有什么好的", "找找安全工具", "研究一下安全方案".
 ---
 
 # 安全工具/方案调研

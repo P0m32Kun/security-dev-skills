@@ -1,7 +1,7 @@
 {
   "name": "p-skills",
   "description": "Structured development methodology for coding agents: TDD, brainstorming, bug fixing, deployment, security, and subagent orchestration. Enforces Research → Design → Implement → Doc-Sync → Verify → Release → Retrospective workflow.",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "author": {
     "name": "P0m32Kun",
     "email": "noreply@github.com"

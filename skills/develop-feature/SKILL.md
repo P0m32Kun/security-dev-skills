@@ -3,7 +3,9 @@ name: develop-feature
 description: >
   Use when developing a complete feature end-to-end, from initial idea through
   research, design, implementation, documentation, verification, and release.
-  Use when user says "新需求开发", "功能开发", "完整开发流程", "开发一个功能".
+  Use when user says "新需求开发", "功能开发", "完整开发流程", "开发一个功能",
+  "我要开发一个", "帮我做一个新功能", "实现这个需求", "做一下这个功能",
+  "new feature", "develop feature", "build feature".
 ---
 
 # 完整需求开发流程
