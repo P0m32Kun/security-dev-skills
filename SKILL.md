@@ -27,7 +27,7 @@ else
 fi
 ```
 
-`UPDATE_AVAILABLE:N` → `git pull --rebase`；`UP_TO_DATE` 或 `SKIP_UPDATE:*` → 跳过。
+`UPDATE_AVAILABLE:N` → `git pull --rebase --autostash`；`UP_TO_DATE` 或 `SKIP_UPDATE:*` → 跳过。
 
 ## 核心理念
 
@@ -151,6 +151,7 @@ description: Use when fixing bugs, debugging issues, or troubleshooting errors. 
 | Skill | 路径 | 触发条件 |
 |-------|------|---------|
 | tdd | `skills/tdd/` | TDD、测试驱动、红绿重构 |
+| openspec | `skills/openspec/` | SDD、Spec-Driven、OpenSpec、文档驱动、先写spec、propose、先定方案再实现 |
 | bdd | `skills/bdd/` | BDD、行为驱动、Gherkin、Three Amigos、Example Mapping |
 | test-strategy | `skills/test-strategy/` | 测试策略、选择测试层级 |
 | e2e-write | `skills/e2e-write/` | 编写 E2E 测试、Playwright |

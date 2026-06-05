@@ -45,6 +45,7 @@ Research → Design → Implement → Doc-Sync → Verify → Release → Retros
 | 修复 bug、故障排查 | `fix-bug` |
 | TDD、测试驱动 | `tdd` |
 | BDD、行为驱动、Gherkin | `bdd` |
+| SDD、Spec-Driven、OpenSpec、文档驱动、先写spec、propose | `openspec` |
 | 测试策略 | `test-strategy` |
 | E2E 测试 | `e2e-write` |
 | 用户验证、验收 | `verify` |

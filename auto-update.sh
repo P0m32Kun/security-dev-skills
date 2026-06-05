@@ -90,7 +90,7 @@ do_update() {
     log_info "当前版本: $CURRENT_VERSION"
 
     # 拉取更新
-    if git pull --rebase origin main; then
+    if git pull --rebase --autostash origin main; then
         NEW_VERSION=$(git rev-parse --short HEAD)
         log_success "更新成功: $CURRENT_VERSION -> $NEW_VERSION"
 

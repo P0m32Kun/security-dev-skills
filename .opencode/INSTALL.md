@@ -74,7 +74,7 @@ P Skills 已安装到 ~/.p-skills
 ## 更新
 
 ```bash
-cd ~/.p-skills && git pull --rebase
+cd ~/.p-skills && git pull --rebase --autostash
 ```
 
 ## 相关文档

@@ -169,7 +169,7 @@ cd ~/.p-skills
 
 ```bash
 cd ~/.p-skills
-git pull --rebase
+git pull --rebase --autostash
 ./scripts/link-skills.sh
 ```
 

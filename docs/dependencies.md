@@ -314,7 +314,7 @@ cat ~/.cache/p-skills/update.log
 
 # 手动更新
 cd ~/.claude/skills/p-skills
-git pull --rebase
+git pull --rebase --autostash
 ./install.sh --required
 ```
 
